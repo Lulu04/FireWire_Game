@@ -1,0 +1,39 @@
+object Form_Main: TForm_Main
+  Left = 407
+  Height = 768
+  Top = 60
+  Width = 1024
+  BorderIcons = []
+  BorderStyle = bsSingle
+  Caption = 'Fire Wire - Lulu - 2018'
+  ClientHeight = 768
+  ClientWidth = 1024
+  Color = 4345681
+  DefaultMonitor = dmPrimary
+  KeyPreview = True
+  OnCloseQuery = FormCloseQuery
+  OnCreate = FormCreate
+  OnDestroy = FormDestroy
+  OnKeyDown = FormKeyDown
+  OnKeyUp = FormKeyUp
+  Position = poScreenCenter
+  LCLVersion = '1.8.0.6'
+  WindowState = wsMaximized
+  object OpenGLControl1: TOpenGLControl
+    Left = 0
+    Height = 768
+    Top = 0
+    Width = 1024
+    Align = alClient
+    AutoResizeViewport = True
+    OnMouseDown = OpenGLControl1MouseDown
+    OnMouseUp = OpenGLControl1MouseUp
+    OnMouseWheelDown = OpenGLControl1MouseWheelDown
+    OnMouseWheelUp = OpenGLControl1MouseWheelUp
+  end
+  object Timer1: TTimer
+    OnTimer = Timer1Timer
+    left = 236
+    top = 80
+  end
+end
