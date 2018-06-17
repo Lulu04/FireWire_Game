@@ -24,6 +24,4 @@ List of directories in 'Units\'
 - OGLCScene  contains units for OpenGL scene. It use TOpenGLControl.
 I start to write the framework 4/5 years ago slowly, according for my needs. It use OpenGL through TOpenGLControl. I got inspired by ZENGL written by Andrey Kemka, so this is not modern OpenGL programming. At this point, I use "glBegin" / glEnd" structure to draw graphics.
 
-
-lulu
-contact@lulutech.fr
+Enjoy !
