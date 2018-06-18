@@ -21,7 +21,6 @@ type
   { TForm_Main }
 
   TForm_Main = class(TForm)
-    LBJeux: TListBox;
     OpenGLControl1: TOpenGLControl;
     Timer1: TTimer;
     procedure FormCloseQuery(Sender: TObject; var {%H-}CanClose: boolean);

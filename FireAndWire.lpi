@@ -16,7 +16,7 @@
       <UseVersionInfo Value="True"/>
       <AutoIncrementBuild Value="True"/>
       <MajorVersionNr Value="2"/>
-      <BuildNr Value="13"/>
+      <BuildNr Value="14"/>
       <Language Value="040C"/>
       <StringTable CompanyName="LuluTech - Jean-Luc Solimine" LegalCopyright="LuluTech - Jean-Luc Solimine" LegalTrademarks="LuLuTech" ProductVersion="2.0"/>
     </VersionInfo>
@@ -1300,9 +1300,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Main"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
-        <TopLine Value="35"/>
-        <CursorPos X="36" Y="96"/>
+        <TopLine Value="8"/>
+        <CursorPos Y="24"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -2065,7 +2066,6 @@
       </Unit259>
       <Unit260>
         <Filename Value="Units\OGLCScene\oglcUtils.inc"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="14"/>
         <TopLine Value="117"/>
         <CursorPos X="76" Y="132"/>
