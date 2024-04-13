@@ -6,7 +6,7 @@ You need:
 - package BGRABitmap and LazOpenGLContext installed on the IDE
 - ALSound library (https://github.com/Lulu04/ALSound)
 - OGLCScene library (https://github.com/Lulu04/OGLCScene)
-- UnitsCommon (https://github.com/Lulu04/UnitsCommon)
+- UnitsCommon library (https://github.com/Lulu04/UnitsCommon)
   
 You must organize all folders at the same level and renamed as follow:  
 |- FireWire_Game  
