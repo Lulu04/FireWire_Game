@@ -187,6 +187,7 @@ begin
   Opacity.Value := 0;
   ChildsUseParentOpacity := False;
   BackGradient.CreateHorizontal([BGRA(0,0,0,0),BGRA(0,0,0,0),BGRA(255,0,255,50),BGRA(128,0,255,30)], [0,0.5,0.75,1]);
+  ChildClippingEnabled := False;
 
   // label 'Click your name'
   FText1 := TFreeText.Create(FScene);
@@ -203,6 +204,7 @@ begin
   FButtonNewPlayer.RightX := round(Width*0.45)-10;
   FButtonNewPlayer.Y.Value := 5;
   FButtonNewPlayer.OnClick := @ProcessButtonClick;
+  FButtonNewPlayer.ChildClippingEnabled := False;
   AddChild(FButtonNewPlayer);
 
   // Player list
@@ -255,6 +257,7 @@ begin
   FButtonStart.BodyShape.SetShapeRoundRect(50,20,8,8,2);
   FButtonStart.CenterX := Width*3/4;
   FButtonStart.OnClick := @ProcessButtonClick;
+  FButtonStart.ChildClippingEnabled := False;
   AddChild(FButtonStart);
 
   // button 'INSTRUCTIONS'
@@ -262,6 +265,7 @@ begin
   FButtonManual.BodyShape.SetShapeRoundRect(50,20,8,8,2);
   FButtonManual.CenterX := Width*3/4;
   FButtonManual.OnClick := @ProcessButtonClick;
+  FButtonManual.ChildClippingEnabled := False;
   AddChild(FButtonManual);
 
   // button 'QUIT'
@@ -269,6 +273,7 @@ begin
   FButtonQuit.BodyShape.SetShapeRoundRect(50,20,8,8,2);
   FButtonQuit.CenterX := Width*3/4;
   FButtonQuit.OnClick := @ProcessButtonClick;
+  FButtonQuit.ChildClippingEnabled := False;
   AddChild(FButtonQuit);
 
   // distribute the 4 items vertically

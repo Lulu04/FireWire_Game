@@ -101,6 +101,7 @@ begin
     b.Y.Value := yy;
     b.OnChange := @ProcessCountryChange;
     b.Tag1 := i;
+    b.ChildClippingEnabled := False;
     if i = FGameState.CountryIndex then b.Checked := TRUE;
     xx += slice*8;
     if ((i > 0) and ((i+1) mod 3 = 0)) then begin
@@ -145,6 +146,7 @@ begin
   FPanelMainMenu.MouseInteractionEnabled := False;
   FPanelManual := TPanelManual.Create;
   FPanelManual.MouseInteractionEnabled := False;
+  FPanelManual.ChildClippingEnabled := False;
 
   //country radio buttons
   CreatePanelCountry;

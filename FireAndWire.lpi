@@ -31,7 +31,7 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <Libraries Value="\usr\lib\gcc\x86_64-linux-gnu\7;media\sf_pascal"/>
+            <Libraries Value="\usr\lib\gcc\x86_64-linux-gnu\7\;media\sf_pascal"/>
             <OtherUnitFiles Value="Units;..\UnitsCommon;..\OGLCScene\source;..\ALSound\source"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
@@ -1297,9 +1297,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Main"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="9"/>
-        <CursorPos X="8" Y="12"/>
+        <CursorPos X="37" Y="15"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1703,8 +1702,8 @@
         <Filename Value="Units\u_screen_title.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="50"/>
-        <CursorPos X="60" Y="50"/>
+        <TopLine Value="90"/>
+        <CursorPos X="36" Y="104"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit213>
@@ -1833,8 +1832,10 @@
         <Filename Value="Units\u_spritedefinition.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="u_SpriteDefinition"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
-        <CursorPos X="13" Y="11"/>
+        <TopLine Value="263"/>
+        <CursorPos X="48" Y="276"/>
         <UsageCount Value="202"/>
         <Loaded Value="True"/>
       </Unit230>
@@ -2435,7 +2436,7 @@
       <Define0 Value="DYNLINK"/>
       <Define1 Value="UseCThreads"/>
     </OtherDefines>
-    <JumpHistory Count="8" HistoryIndex="7">
+    <JumpHistory Count="12" HistoryIndex="11">
       <Position1>
         <Filename Value="Units\u_audio.pas"/>
         <Caret Line="40" TopLine="25"/>
@@ -2468,6 +2469,22 @@
         <Filename Value="Units\main.pas"/>
         <Caret Line="12" Column="8"/>
       </Position8>
+      <Position9>
+        <Filename Value="Units\u_screen_title.pas"/>
+        <Caret Line="28" Column="19" TopLine="13"/>
+      </Position9>
+      <Position10>
+        <Filename Value="Units\u_screen_title.pas"/>
+        <Caret Line="151" Column="17" TopLine="133"/>
+      </Position10>
+      <Position11>
+        <Filename Value="Units\u_screen_title.pas"/>
+        <Caret Line="25" Column="13" TopLine="13"/>
+      </Position11>
+      <Position12>
+        <Filename Value="Units\u_spritedefinition.pas"/>
+        <Caret Line="60" Column="18" TopLine="46"/>
+      </Position12>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -2478,7 +2495,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <Libraries Value="\usr\lib\gcc\x86_64-linux-gnu\7;media\sf_pascal"/>
+      <Libraries Value="\usr\lib\gcc\x86_64-linux-gnu\7\;media\sf_pascal"/>
       <OtherUnitFiles Value="Units;..\UnitsCommon;..\OGLCScene\source;..\ALSound\source"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
