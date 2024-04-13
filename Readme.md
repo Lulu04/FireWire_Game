@@ -9,7 +9,9 @@ You need:
   
 You must organize the folders as follow:  
 -FireWire_Game folder  
+|  
 -ALSound  
+|  
 -OGLCScene  
 
 In game, use the mouse, ESC key to return to main menu.
