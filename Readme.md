@@ -8,9 +8,9 @@ You need:
 - OGLSCene library (https://github.com/Lulu04/OGLCScene)
   
 You must organize all folders at the same level and renamed as follow:  
-? FireWire_Game folder    
-? ALSound folder    
-? OGLCScene folder  
+|- FireWire_Game  
+|- ALSound  
+|- OGLCScene  
 
 In game, use the mouse, ESC key to return to main menu.
 
