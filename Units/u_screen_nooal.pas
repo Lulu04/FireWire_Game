@@ -29,7 +29,7 @@ end;
 var NoOALScreen: TNoOALScreen = NIL;
 
 implementation
-uses u_screen_title, screen_logo;
+uses screen_logo;
 
 { TNoOALScreen }
 

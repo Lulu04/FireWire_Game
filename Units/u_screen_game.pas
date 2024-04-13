@@ -185,6 +185,7 @@ begin
    with FScene.Mouse do begin
      p := PolarToCartesian(PointF(Position.x, Position.y), FCurrentTargetPointOnScene);
 
+     path := NIL;
      path.CreateLine(Position.x, Position.y, p.x, p.y);
      FScene.SmoothLineRenderer.PushPath2(path, lpMiddle, BGRA(255,164,255), 3.5, 1.0, True);
    end;

@@ -12,7 +12,7 @@ procedure InitAudioEngine;
 procedure StopAudioEngine;
 
 implementation
-uses u_crossplatform, common, u_PlayerList, ctypes;
+uses common, u_PlayerList, ctypes;
 
 var AudioLogFile: OGLCScene.TLog = NIL;
 

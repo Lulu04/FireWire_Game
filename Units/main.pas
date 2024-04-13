@@ -73,10 +73,7 @@ end;
 
 procedure TForm_Main.FormCloseQuery(Sender: TObject; var CanClose: boolean);
 begin
- Timer1.Enabled:=FALSE;
-// FScene.Camera.Scale.ChangeTo(PointF(0.01,0.01), 1);
-// FScene.Camera.Angle.AddConstant(360);
-  FScene.ExecuteDuring(1);
+  Timer1.Enabled:=FALSE;
 end;
 
 procedure TForm_Main.FormKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
