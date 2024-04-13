@@ -7,61 +7,37 @@ interface
 uses
   Classes, SysUtils,
   LazFileUtils,
-  OGLCScene, VelocityCurve, OALSoundManager,
-  u_SpriteDefinition;
+  OGLCScene, ALSound;
 
 
 const
 
 // LAYER
-LAYER_COUNT = 7;
-LAYER_TOP        = 0;
-LAYER_PLAYERLIST = 1;
-LAYER_BONUS      = 2;
-LAYER_POINT      = 3;
-LAYER_PARTICLE   = 4;
-LAYER_EFFECT     = 5;
-LAYER_STARS      = 6;
-
-
-PARTICLES_FOLDER = 'Data'+DIRECTORYSEPARATOR+'Particles'+DIRECTORYSEPARATOR;
-IMAGES_FOLDER = 'Data'+DIRECTORYSEPARATOR+'Images'+DIRECTORYSEPARATOR;
-DRAWINGS_FOLDER = 'Data'+DIRECTORYSEPARATOR+'Drawings'+DIRECTORYSEPARATOR;
-AUDIO_FOLDER = 'Data'+DIRECTORYSEPARATOR+'Audio'+DIRECTORYSEPARATOR;
-SCENARIO_FOLDER = 'Data'+DIRECTORYSEPARATOR+'Scenario'+DIRECTORYSEPARATOR;
+LAYER_COUNT = 4;
+  LAYER_TOP        = 0;
+  LAYER_BONUS      = 1;
+  LAYER_EFFECT     = 2;
+  LAYER_STARS      = 3;
 
 var
+
 FScene: TOGLCScene;
 
-TIME_SLICE_FOR_TITLE_ANIMATION:integer;
-
-FFontTitle,
-FFontButton,
-FFontPlayerList,
-FFontWelcomePlayer: TGuiFont;
-
-FEnableMouseCapture: boolean=FALSE;
-
+GameAtlas: TOGLCTextureAtlas;
 FPointTexture,
 FMouseSatelliteTexture: PTexture;
 TexStarA: PTexture;
 TexStarB: PTexture;
 
+FontInstruction,
+FontMenu,
+FontSmallText: TTexturedFont;
 
-FPanelCountry: TColorBackGround;
-
-SndButtonClick: TOALSound;
-
-FPanelPlayerList: TPanelPlayerList;
-FPanelMainMenu: TPanelMainMenu;
-FPanelManual : TPanelManual;
-
-
+PlaybackContext: TALSPlaybackContext;
+fxReverb: TALSEffect;  // reverb applyed on music note and SndClick
+SndClick: TALSSound;
 
 implementation
-
-
-
 
 end.
 

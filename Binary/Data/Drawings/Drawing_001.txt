@@ -1,0 +1,10 @@
+[DRAWING_PATH]
+Square
+PointCount
+5
+ListOfPointF
+0.430 0.286
+0.586 0.286
+0.586 0.443
+0.430 0.443
+0.430 0.286

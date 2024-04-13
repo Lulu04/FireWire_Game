@@ -5,280 +5,256 @@ unit u_screen_title;
 interface
 
 uses
-  Classes, SysUtils, Graphics,
+  Classes, SysUtils, Graphics,       controls,
   BGRABitmap, BGRABitmapTypes,
   GL,
-  OGLCScene, VelocityCurve, OALSoundManager,
-  common, U_DrawingBank,
-  u_SpriteDefinition,
-  u_PlayerList;
+  OGLCScene, ALSound,
+  common, u_SpriteDefinition, u_PlayerList;
 
 type
 
-{ THomeScreen }
+{ TTitleScreen }
 
-THomeScreen = class( TStageSkeleton )
+TTitleScreen = class(TScreenTemplate)
 private
-  FTitle: TDeformationGrid;//TSprite;//TGUILabel;
-
-  FCreateGreenPointEnabled: boolean;
-  FSliceCount1: integer;
-  FMoveRepeatlyMagicPowder: boolean;
-
-  procedure ProcessSceneAfterPaint;
-private
-  FTimer1: PTimerObject;  // timer to create periodicaly event animation on title screen
-  FMsCount: integer;
-  procedure ProcessTimer1;
-private
-  FPEMagicPowder: TParticleEmitter;
-  procedure CreateMagicPowder;
-  Procedure LaunchMagicPowder;
+  FTitle: TDeformationGrid;
+  FPanelMainMenu: TPanelMainMenu;
+  FPanelManual: TPanelManual;
+  FPanelCountry: TUIScrollBox;
 private
   procedure CreatePanelCountry;
-  procedure ProcessCountryChange( aGUISurface: TSimpleSurfaceWithEffect );
+  procedure ProcessCountryChange(aGUISurface: TSimpleSurfaceWithEffect);
 public
-  procedure LoadData; override;
-  procedure FreeData; override;
-  procedure Update( AElapsedTime: single ); override;
+  procedure CreateObjects; override;
+  procedure FreeObjects; override;
+  procedure processMessage(UserValue: TUserMessageValue); override;
+
+procedure bidonmousedown(Sender: TObject; Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
 
 end;
 
-var HomeScreen: THomeScreen = NIL;
+var TitleScreen: TTitleScreen = NIL;
 
 implementation
 uses U_StarsBackgrounds,
-  u_DrawingPoints,GeometricShapes,
-  u_language,
+  GeometricShapes,
+  u_language, u_crossplatform,
   Dialogs;
 
-{ THomeScreen }
+type
 
-procedure THomeScreen.ProcessSceneAfterPaint;
-begin
- DrawingPath.DrawPath(1.0);
+{ TCountryRadio }
+
+TCountryRadio = class(TUIRadio)
+private
+  procedure Anim_OnChange(Sender: TSimpleSurfaceWithEffect);
+public
+  constructor Create(aParentScene: TOGLCScene; const aCaption: string; aFont: TTexturedFont);
 end;
 
-procedure THomeScreen.ProcessTimer1;
-var FPolarSprite: TMyPolarSprite;
+{ TCountryRadio }
+
+procedure TCountryRadio.Anim_OnChange(Sender: TSimpleSurfaceWithEffect);
 begin
- FMsCount+=TIME_SLICE_FOR_TITLE_ANIMATION; // 100ms or 200ms
-
- case FMsCount of
-  400:  FScene.Layer[LAYER_STARS].Opacity.ChangeTo(255, 1.5); // stars appears
-
-  2400: LaunchMagicPowder; // Magic powder crosses the screen from right to the left
-
-  3200: DrawingPath.LineColor.ChangeTo(BGRA(245,175,216), 1.5); // Lazarus appears
-  5600: FPEMagicPowder.X.ChangeTo(FScene.Width+200, 0.8);
-  6400: begin
-    DrawingPath.EnableShaker:=TRUE;
-    DrawingPath.ShakerAmplitude:=3;
-    DrawingPath.LineColor.ChangeTo(BGRA(255,255,0), 1.5);
-  end;
-  8000:begin
-    FPEMagicPowder.X.ChangeTo(DrawingPath.Point[0].OriginalPt.x, 0.9, idcStartFastEndSlow );
-    FMoveRepeatlyMagicPowder:=TRUE;
-  end;
-  9200: begin
-    DrawingPath.ParticleOpacity.ChangeTo(255, 4 );
-    DrawingPath.LineColor.Alpha.ChangeTo(0, 4 );
-  end;
-  10800:begin
-   // FCreateGreenPointEnabled:=TRUE;
-    FTitle.Opacity.ChangeTo( 255, 3 );
-    FPanelMainMenu.Opacity.ChangeTo(255, 2);
-    FPanelCountry.Opacity.ChangeTo(255,1);
-
-    FScene.Layer[LAYER_PLAYERLIST].Freeze:=FALSE;
-    FScene.Layer[LAYER_PLAYERLIST].Opacity.ChangeTo(255, 1);
-  end;
-  11600: FPEMagicPowder.Opacity.ChangeTo(0, 2 );
-  13600:begin
-    FPEMagicPowder.Kill;
-    FPEMagicPowder:=NIL;
-    FMoveRepeatlyMagicPowder:=FALSE;
-    FPanelMainMenu.EnableGui;
-  end;
- end;
-
- if FMoveRepeatlyMagicPowder and (FPEMagicPowder<>NIL) then
-   if FPEMagicPowder.X.State=psNO_CHANGE then
-     if FPEMagicPowder.X.Value=DrawingPath.Point[0].OriginalPt.x
-       then FPEMagicPowder.X.ChangeTo(DrawingPath.Point[DrawingPath.Count-1].OriginalPt.x, 0.4, idcSinusoid )
-       else FPEMagicPowder.X.ChangeTo(DrawingPath.Point[0].OriginalPt.x, 0.4, idcSinusoid );
-
- if FCreateGreenPointEnabled then begin
-   inc( FSliceCount1 );
-   if FSliceCount1=2 then begin
-     FSliceCount1:=0;
-     FPolarSprite:= TMyPolarSprite.Create(FPointTexture);
-     FScene.Add( FPolarSprite, LAYER_STARS);
-   end;
- end;
-
- if (FMsCount>14000)and(FMsCount mod 6000=0) then TDrawingForTitle.Create;
-
+  if Checked then _Label.Tint.Value := BGRA(255,255,255)
+    else _Label.Tint.Value := BGRA(64,255,255);
 end;
 
-procedure THomeScreen.CreateMagicPowder;
+constructor TCountryRadio.Create(aParentScene: TOGLCScene; const aCaption: string; aFont: TTexturedFont);
 begin
- FPEMagicPowder := TParticleEmitter.Create;
- FPEMagicPowder.LoadFromFile(PARTICLES_FOLDER+'TitleMagicPowder.par');
- FScene.Add( FPEMagicPowder, LAYER_TOP );
- FPEMagicPowder.SetCoordinate( FScene.Width+100, 50 );
+  inherited Create(aParentScene, aCaption, aFont);
+  OnAnimChange := @Anim_OnChange;
 end;
 
-procedure THomeScreen.LaunchMagicPowder;
-begin
- FPEMagicPowder.X.ChangeTo(-200, 1 );
-end;
+{ TTitleScreen }
 
-procedure THomeScreen.CreatePanelCountry;
+procedure TTitleScreen.CreatePanelCountry;
 var ww, hh, i: integer;
-  xx, delta: single;
-  f: TGuiFont;
-  b: TGuiRadio;
+  xx, yy, slice: single;
+  b: TCountryRadio;
+bb: TUIButton;
 begin
- ww := round(FScene.Width*2/7);
- hh := 30;
- FPanelCountry := TColorBackground.Create(0, FScene.Height-hh-30, ww, hh );
- FPanelCountry.CenterX:=FScene.Width*2/3;
- FScene.Add( FPanelCountry, LAYER_TOP );
- FPanelCountry.SetAllColorsTo( BGRA(0,0,0,60) );
- FPanelCountry.Opacity.Value:=0;
+  ww := Round(FScene.Width/2.5);
+  hh := Round(FScene.Height*0.5*3/20);
+  FPanelCountry := TUIScrollBox.Create(FScene, True, True);
+  FPanelCountry.BodyShape.SetShapeRoundRect(ww, hh, 8, 8, 2);
+  FPanelCountry.VMouseWheelDeltaValue := 3;
+  FPanelCountry.BodyShape.Fill.Color := BGRA(0,0,0,60);
+  FPanelCountry.HScrollBarMode := sbmAuto;
+  FPanelCountry.VScrollBarMode := sbmAuto;
+  FPanelCountry.RightX := FScene.Width/12+(FScene.Width*5/6);
+  FPanelCountry.Y.Value := FScene.Height-hh-FScene.Height*0.5/20*0.5;
+  FScene.Add(FPanelCountry, LAYER_TOP);
+  FPanelCountry.Opacity.Value := 0;
+  FPanelCountry.ChildsUseParentOpacity := False;
+  FPanelCountry.BackGradient.CreateHorizontal([BGRA(128,0,255,30), BGRA(255,0,255,50), BGRA(128,0,255,30)], [0,0.5,1]);
 
- f := GuiFont( 'Arial', 13, [], BGRA(0,200,200,255), BGRA(0,0,0,0), 0, BGRA(0,0,255,0), 1, 1, 1 );
+  slice := ww/(3*8+4);
+  xx := slice;
+  yy := FPanelCountry.ClientArea.Top;
+  for i:=0 to COUNTRY_COUNT-1 do begin
+    b := TCountryRadio.Create(FScene, CountryRes[i], FontInstruction);
+    b._Label.Tint.Value := BGRA(64,255,255);
+    //b.CustomizeWithoutCheckBox;
+    FPanelCountry.AddChild(b);
+    b.X.Value := xx;
+    b.Y.Value := yy;
+    b.OnChange := @ProcessCountryChange;
+    b.Tag1 := i;
+    if i = FGameState.CountryIndex then b.Checked := TRUE;
+    xx += slice*8;
+    if ((i > 0) and ((i+1) mod 3 = 0)) then begin
+      yy := yy + b.Height*1.3;
+      xx := slice;
+    end;
+  end;
+exit;
+bb := TUIButton.Create(FScene, 'HELLO', FontInstruction, NIL);
+FPanelCountry.AddChild(bb);
+bb.SetCoordinate(1000, 275);
+bb._Label.Tint.Value := BGRA(255,255,255);
+bb.OnMouseDown:=@bidonmousedown;
 
- delta:=ww/COUNTRY_COUNT;
- xx := delta/2;
- for i:=0 to COUNTRY_COUNT-1 do begin
-  b := TGuiRadio.Create(CountryRes[i], f, NIL );
-  FPanelCountry.AddChild( b );
-  b.CenterX:=xx;
-  b.Y.Value:=5;
-  b.OnChange:=@ProcessCountryChange;
-  b.Tag1 := i;
-  if i=FCurrentCountry then b.Checked:=TRUE;
-  xx+=delta;
- end;
-
+bb := TUIButton.Create(FScene, 'HELLO', FontInstruction, NIL);
+FPanelCountry.AddChild(bb);
+bb.SetCoordinate(0, 275);
+bb._Label.Tint.Value := BGRA(255,255,255);
+bb.OnMouseDown:=@bidonmousedown;
 end;
 
-procedure THomeScreen.ProcessCountryChange(aGUISurface: TSimpleSurfaceWithEffect);
+procedure TTitleScreen.ProcessCountryChange(aGUISurface: TSimpleSurfaceWithEffect);
 begin
- // User clicks on country button: we translate all the widgets in current language
- if aGUISurface is TGuiRadio
-   then begin
-     SndButtonClick.Play(TRUE);
-     FCurrentCountry := (aGUISurface as TGuiRadio).Tag1;
-     FSaveGame.SetCurrentCountry;
-
-     FPanelManual.UpdateText;
-     FPanelMainMenu.UpdateText;
-   end;
+  // User clicks on country button: we translate all the widgets in current language
+  if aGUISurface is TUIRadio then begin
+    SndClick.Play(TRUE);
+    FGameState.CountryIndex := (aGUISurface as TUIRadio).Tag1;
+    FPanelManual.UpdateText;
+    FPanelMainMenu.UpdateText;
+  end;
 end;
 
-procedure THomeScreen.LoadData;
+procedure TTitleScreen.CreateObjects;
 var t: PTexture;
   FText: TSprite;
-//test:  TPathToDraw;
+  font: TFontDescriptor;
 begin
- {
-  test:=  TPathToDraw.Create(250);
-  FScene.Add( test );
-  test.CenterOnScene;
- // test.SetTextureForPoint( FPointTexture );
-  test.LoadFromFile(DRAWINGS_FOLDER+'Drawing_018.txt');
-  test.PointVisible:=FALSE;
-  test.Angle.AddConstant(10);
-  test.Scale.Value:=PointF(10,10);
-  test.Scale.ChangeTo(PointF(0.3,0.3),20, idcStartFastEndSlow);
-  test.LineColor.Value:=BGRA(254,149,44,150);
-  test.CreateParticleEmitters(PARTICLES_FOLDER+'MagicPowder2.par');
- }
+  SndClick := PlaybackContext.AddSound(AudioFolder+'ButtonClick.wav');
+  SndClick.ApplyEffect(fxReverb);
 
+  FPanelMainMenu := TPanelMainMenu.Create;
+  FPanelMainMenu.MouseInteractionEnabled := False;
+  FPanelManual := TPanelManual.Create;
+  FPanelManual.MouseInteractionEnabled := False;
 
- FScene.BackgroundColor := BGRA(36,0,70);
+  //country radio buttons
+  CreatePanelCountry;
 
- SndButtonClick := OALManager.Add(AUDIO_FOLDER+'ButtonClick.wav');
+  if FGameState.PlayerCount = 0 then FPanelMainMenu.DoClickOnButtonNewPlayer;
 
- //country radio buttons
- CreatePanelCountry;
+  // Game title
+  font.Create('Arial Black', 140, [], BGRA(255,60,97,200), BGRA(255,255,150), 8, BGRA(0,255,0,255), 20, 20, 15);
+  t := FScene.TexMan.TextToTexture('Fire & Wire', font, NIL);
+  FTitle := TDeformationGrid.Create(t, TRUE);
+  FTitle.SetGrid(20,20);
+  FTitle.ApplyDeformation(dtTumultuousWater);
+  FTitle.DeformationSpeed.Value := PointF(1.5,1.6);
+  FTitle.Amplitude.Value := PointF(0.2,0.3);
+  FTitle.SetCenterCoordinate(FScene.Width/2, FScene.Height/4);
+  FTitle.X.Value := FTitle.X.Value + FTitle.Width/15;
+  FTitle.Scale.Value := ScaleValueToFitScene(t, FScene, Trunc(FScene.Width*0.1));
+  FTitle.Opacity.Value := 0;
+  FScene.Add(FTitle);
 
- // hide the layer for the player list items
- FScene.Layer[LAYER_PLAYERLIST].Opacity.Value:=0;
- FScene.Layer[LAYER_PLAYERLIST].Freeze:=TRUE;
+  CreateStars;
 
- FPanelMainMenu := TPanelMainMenu.Create;
- FPanelMainMenu.DisableGui;
- FPanelManual := TPanelManual.Create;
- FPanelManual.DisableGui;
+  font.Create('Arial', 10, [fsBold], BGRA(80,255,80), BGRA(0,0,0,0), 1, BGRA(0,0,0), 1, 1, 2);
+  t := FScene.TexMan.TextToTexture('Lulu - 2018', font, NIL);
+  FText := TSprite.Create(t, True);
+  FScene.Add( FText );
+  FText.BottomY:= FScene.Height-3;
+  FText.RightX := FScene.Width-3;
 
- if FSaveGame.PlayerCount=0 then FPanelMainMenu.ButtonNewPlayerClick(NIL);
+  // everything is transparent at the beginning
+  FScene.Layer[LAYER_STARS].Opacity.Value := 0;
+  FScene.Layer[LAYER_TOP].Opacity.Value := 0;
+  FScene.Layer[LAYER_TOP].Freeze := TRUE;
 
- // Game title
- t := TextToTexture('Fire & Wire',GuiFont('Arial Black', 140, [],
-                    BGRA(255,60,97,200), BGRA(255,255,150), 8,
-                    BGRA(0,255,0,255), 20, 20, 15), NIL );
- FTitle := TDeformationGrid.Create( t, TRUE );
- FTitle.SetGrid( t^.ImageWidth, t^.ImageHeight, 20, 20 );
- FTitle.ApplyDeformation( dtTumultuousWater );
- FTitle.DeformationSpeed.Value :=PointF(0.5,0.6);
- FTitle.Amplitude.Value := PointF(0.2,0.3);
-// FTitle.ApplyShadows:=TRUE;
-
- FTitle.SetCenterCoordinate( FScene.Width/2, FScene.Height/2-100 );
- FTitle.Opacity.Value:=0;
- FScene.Add( FTitle );
-
- CreateStars;
- FScene.Layer[LAYER_STARS].Opacity.Value :=0;// stars are transparent at the beginning
-
- // load drawing 'Lazarus'
- DrawingBank.LoadDrawing( DRAWINGS_FOLDER+'LazarusDrawing.txt');
- DrawingPath.PointVisible:=FALSE;
- DrawingPath.Mode := pdmAll;
- DrawingPath.LineColor.Value := BGRA(0,0,0,0);// first, Lazarus title is transparent
- DrawingPath.ParticleOpacity.Value:=0;
- DrawingPath.CreateParticleEmitters('TitleLazarusFire.par');
-
- FScene.OnAfterPaint := @ProcessSceneAfterPaint;
-
- FTimer1 := TimerManager.Add( @ProcessTimer1, 100);
- FMsCount := 0;
- FCreateGreenPointEnabled:=FALSE;
-
- FMoveRepeatlyMagicPowder := FALSE;
-
- FText := TextToSprite('Lulu - 2018', GuiFont('', 10, [fsBold],
-                     BGRA(80,255,80), BGRA(0,0,0,0), 1,
-                     BGRA(0,0,0), 1, 1, 2), NIL );
- FScene.Add( FText );
- FText.BottomY:= FScene.Height-3;
- FText.RightX := FScene.Width-3;
-
- CreateMagicPowder;
+  PostMessage(100);
 end;
 
-procedure THomeScreen.FreeData;
+procedure TTitleScreen.FreeObjects;
 begin
- TimerManager.Delete( FTimer1 );
-
- FScene.ClearAllLayer;
- FScene.OnAfterPaint := NIL;
-
- FPanelMainMenu.WelcomeLabel := NIL;
- FPanelMainMenu:=NIL;
-
- OALManager.Delete( SndButtonClick );
-
- TIME_SLICE_FOR_TITLE_ANIMATION:=200;
+  FScene.ClearAllLayer;
+  SndClick.Kill;
 end;
 
-procedure THomeScreen.Update(AElapsedTime: single);
+procedure TTitleScreen.processMessage(UserValue: TUserMessageValue);
 begin
- DrawingPath.Update( AElapsedTime );
+  inherited processMessage(UserValue);
+
+  case Uservalue of
+    // hide main menu panel - show instructions panel
+    0: begin
+      //if not FPanelMainMenu.MouseInteractionEnabled then exit;
+     SndClick.Play(TRUE);
+     FPanelMainMenu.MouseInteractionEnabled := False;
+     FPanelMainMenu.X.ChangeTo(-FScene.Width-10, 1.0, idcExtend2);
+     PostMessage(1, 0.6);
+    end;
+    1: begin
+      FPanelManual.MouseInteractionEnabled := False;
+      FPanelManual.MoveXCenterTo(FScene.Center.x, 1.5, idcBouncy);
+      PostMessage(2, 1.5);
+    end;
+    2: begin
+      FPanelManual.MouseInteractionEnabled := True;
+    end;
+
+    // hide instructions panel - show main menu panel
+    10: begin
+      //if not FPanelManual.MouseInteractionEnabled then exit;
+      SndClick.Play(TRUE);
+      FPanelManual.MouseInteractionEnabled := False;
+      FPanelManual.X.ChangeTo(FScene.Width+10, 1, idcExtend2);
+      PostMessage(11, 0.6);
+    end;
+    11: begin
+     FPanelMainMenu.MouseInteractionEnabled := False;
+     FPanelMainMenu.MoveXCenterTo( FScene.Center.x, 1.5, idcBouncy);
+     PostMessage(12, 1.5);
+    end;
+    12: begin
+     FPanelMainMenu.MouseInteractionEnabled := True;
+    end;
+
+    // everything appear
+    100: begin
+       FTitle.Opacity.ChangeTo(255, 4, idcStartSlowEndFast);
+       FPanelMainMenu.Opacity.ChangeTo(255, 2);
+       FPanelCountry.Opacity.ChangeTo(255,2);
+       FScene.Layer[LAYER_TOP].Freeze := FALSE;
+       FScene.Layer[LAYER_TOP].Opacity.ChangeTo(255, 1);
+       FScene.Layer[LAYER_STARS].Opacity.ChangeTo(255, 1.5);
+       PostMessage(101, 1);
+    end;
+    101: begin
+       FPanelMainMenu.MouseInteractionEnabled := True;
+       PostMessage(102, 6);
+    end;
+
+    // create a new moving drawing on the background
+    102: begin
+      TDrawingForTitle.Create;
+      PostMessage(102, 6.0);
+    end;
+  end;
+end;
+
+procedure TTitleScreen.bidonmousedown(Sender: TObject; Button: TMouseButton;Shift: TShiftState; X, Y: Integer);
+var b: TUIButton;
+begin
+  b := TUIButton(Sender);
+  b.Caption := '('+X.ToString+','+Y.ToString+')';
 end;
 
 end.

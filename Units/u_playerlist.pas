@@ -6,197 +6,143 @@ interface
 
 uses
   Classes, SysUtils,
-  LazFileUtils, IniFiles,
-  AppIniFile,
-  OGLCScene;
+  LazFileUtils, OGLCScene;
 
+
+
+type
+
+TPlayerItem = record
+  Name: string;
+  CurrentStageIndex: integer;
+end;
+PPlayerItem = ^TPlayerItem;
 
 { TFireWireSaveGame }
 
-const INI_CURRENT_PLAYER_SECTION='CurrentPlayer';
-      INI_NAME='Name';
-      INI_IMAGE_INDEX='ImageIndex';
-
-      INI_PLAYERS_SECTION='Players';
-      INI_LIST_IDENT = 'List';
-      INI_PLAYER_SEPARATOR ='+';
-      INI_IMAGEINDEX_SEPARATOR ='/';
-type
-
-TFireWireSaveGame = class( TCustomAppSaveFolder )
-protected
-  procedure WriteHeader; override;
+TFireWireSaveGame = class(TOGLCSaveDirectory)
 private
-  FCurrentPlayerName: string;
-  FCurrentDrawingIndex: integer;
-  procedure SetCurrentDrawingIndex(AValue: integer);
-  procedure SetCurrentPlayerName(AValue: string);
-  procedure SavePlayerList;
-private
-  FPlayerList: ArrayOfString;
+  FCountryIndex: integer;
+  FCurrentPlayerIndex: integer;
+  procedure SetCountryIndex(aValue: integer);
+  procedure SetCurrentPlayerIndex(aValue: integer);
   function GetPlayerCount: integer;
-  function GetPlayerImageIndex(index: integer): integer;
-  function GetPlayerName(index: integer): string;
-  procedure RetrieveSettings; // called in create
-  function PackPlayerList: string;
-  procedure SetImageIndex( const aPlayerName: string; aValue: integer );
-  procedure AddPlayer( const aPlayerName: string ); // add player only if he is not already in the list
 public
-  Constructor CreateLulutechIniFile;
-  Destructor Destroy; override;
-  procedure SetCurrentCountry;
-  procedure SetCurrentPlayer( APlayerName: string );
-  property CurrentPlayerName: string read FCurrentPlayerName write SetCurrentPlayerName;
-  property CurrentDrawingIndex: integer read FCurrentDrawingIndex write SetCurrentDrawingIndex;
-public
-  function IndexOf( const aPlayerName: string ): integer;
+  PlayerList: array of TPlayerItem;
+  procedure Save;
+  procedure Load;
+  procedure AddPlayer(const aName: string);
+
+  function GetCurrentPlayerInfo: PPlayerItem;
+
   property PlayerCount: integer read GetPlayerCount;
-  property PlayerName[index: integer]: string read GetPlayerName;
-  property PlayerIndex[index: integer]: integer read GetPlayerImageIndex;
+  property CountryIndex: integer read FCountryIndex write SetCountryIndex;
+  property CurrentPlayerIndex: integer read FCurrentPlayerIndex write SetCurrentPlayerIndex;
 end;
 
-var FSaveGame: TFireWireSaveGame;
+var FGameState: TFireWireSaveGame;
 
 implementation
 uses u_language;
 
 { TFireWireSaveGame }
 
-procedure TFireWireSaveGame.WriteHeader;
+procedure TFireWireSaveGame.SetCountryIndex(aValue: integer);
 begin
- inherited WriteHeader;
- if not SectionExists('Language')
-   then WriteString('Language', 'Country', '1');
+  if FCountryIndex = AValue then exit;
+  FCountryIndex := AValue;
+  Save;
 end;
 
-procedure TFireWireSaveGame.SetCurrentDrawingIndex(AValue: integer);
+procedure TFireWireSaveGame.SetCurrentPlayerIndex(aValue: integer);
 begin
-  FCurrentDrawingIndex:=AValue;
-  WriteString(INI_CURRENT_PLAYER_SECTION, INI_IMAGE_INDEX, inttostr(AValue));
-
-  SetImageIndex( CurrentPlayerName, AValue );
-
-  SavePlayerList;
-end;
-
-procedure TFireWireSaveGame.SetCurrentPlayerName(AValue: string);
-begin
-  FCurrentPlayerName:=AValue;
-  WriteString(INI_CURRENT_PLAYER_SECTION, INI_NAME, AValue);
-end;
-
-procedure TFireWireSaveGame.SavePlayerList;
-begin
- WriteString( INI_PLAYERS_SECTION, INI_LIST_IDENT, PackPlayerList );
-end;
-
-procedure TFireWireSaveGame.RetrieveSettings;
-begin
- FPlayerList := SplitLineToStringArray( ReadString(INI_PLAYERS_SECTION, INI_LIST_IDENT, ''), INI_PLAYER_SEPARATOR);
-
- FCurrentCountry := strtoint(ReadString('Language','Country', '1'));
+  if FCurrentPlayerIndex = aValue then exit;
+  FCurrentPlayerIndex := aValue;
+  Save;
 end;
 
 function TFireWireSaveGame.GetPlayerCount: integer;
 begin
- Result := Length(FPlayerList);
+  Result := Length(PlayerList);
 end;
 
-function TFireWireSaveGame.GetPlayerImageIndex(index: integer): integer;
-var SplittedText: ArrayOfString;
+procedure TFireWireSaveGame.Save;
+var temp: TStringList;
+    prop: TProperties;
+    i: Integer;
 begin
- if (index>-1) and (index<GetPlayerCount) then begin
-   SplittedText := SplitLineToStringArray( FPlayerList[index], INI_IMAGEINDEX_SEPARATOR );
-   Result := strtoint( SplittedText[1] );
- end else Result := 0;
+  if not FolderCreated then exit;
+
+  temp := TStringList.Create;
+  prop.Init('|');
+  prop.Add('Name', 'FireAndWire');
+  prop.Add('Author', 'Lulu');
+  prop.Add('Country', FCountryIndex);
+  prop.Add('CurrentPlayerIndex', FCurrentPlayerIndex);
+  prop.Add('PlayerCount', Length(PlayerList));
+  for i:=0 to High(PlayerList) do begin
+    prop.Add('Name'+i.ToString, PlayerList[i].Name);
+    prop.Add('Stage'+i.ToString, PlayerList[i].CurrentStageIndex);
+  end;
+  temp.Add(prop.PackedProperty);
+  try
+    temp.SaveToFile(SaveFolder+'FireAndWire.sav');
+  finally
+    temp.Free;
+  end;
 end;
 
-function TFireWireSaveGame.GetPlayerName(index: integer): string;
-var SplittedText: ArrayOfString;
+procedure TFireWireSaveGame.Load;
+var temp: TStringList;
+    prop: TProperties;
+    i, vi: Integer;
+    vs: string;
 begin
- if (index>-1) and (index<GetPlayerCount) then begin
-   SplittedText := SplitLineToStringArray( FPlayerList[index], INI_IMAGEINDEX_SEPARATOR );
-   Result := SplittedText[0];
- end else Result := 'unknow';
+  if not FolderCreated then exit;
+  temp := TStringList.Create;
+  try
+    vs := '';
+    vi := 0;
+    temp.LoadFromFile(SaveFolder+'FireAndWire.sav');
+    if temp.Count <> 1 then exit;
+    prop.Split(temp.Strings[0], '|');
+    prop.StringValueOf('Name', vs, '');
+    if vs <> 'FireAndWire' then exit;
+    prop.IntegerValueOf('Country', FCountryIndex, 1);
+    prop.IntegerValueOf('CurrentPlayerIndex', FCurrentPlayerIndex, -1);
+    prop.IntegerValueOf('PlayerCount', vi, 0);
+    PlayerList := NIL;
+    if vi > 0 then begin
+      SetLength(PlayerList, vi);
+      for i:=0 to High(PlayerList) do begin
+        prop.StringValueOf('Name'+i.ToString, vs, 'Player'+i.ToString);
+        prop.IntegerValueOf('Stage'+i.ToString, vi, 0);
+        PlayerList[i].Name := vs;
+        PlayerList[i].CurrentStageIndex := vi;
+      end;
+    end;
+  except
+    FCountryIndex := 1;
+    FCurrentPlayerIndex := -1;
+    PlayerList := NIL;
+  end;
+  temp.Free;
 end;
 
-function TFireWireSaveGame.PackPlayerList: string;
+procedure TFireWireSaveGame.AddPlayer(const aName: string);
 var i: integer;
 begin
- Result := '';
- for i:=0 to Length(FPlayerList)-1 do begin
- Result += FPlayerList[i];
- if i<>Length(FPlayerList)-1 then Result += INI_PLAYER_SEPARATOR;
- end;
+  i := Length(PlayerList);
+  SetLength(PlayerList, i+1);
+  PlayerList[i].Name := aName;
+  PlayerList[i].CurrentStageIndex := 0;
+  FCurrentPlayerIndex := i;
+  Save;
 end;
 
-function TFireWireSaveGame.IndexOf(const aPlayerName: string): integer;
-var i: integer;
-    SplittedText: ArrayOfString;
+function TFireWireSaveGame.GetCurrentPlayerInfo: PPlayerItem;
 begin
- Result := -1;
- for i:=0 to Length( FPlayerList )-1 do begin
-   SplittedText := SplitLineToStringArray( FPlayerList[i], INI_IMAGEINDEX_SEPARATOR );
-   if SplittedText[0]=aPlayerName then begin
-     Result := i;
-     exit;
-   end;
- end;
-end;
-
-procedure TFireWireSaveGame.SetImageIndex(const aPlayerName: string; aValue: integer );
-var i: integer;
-begin
- i := IndexOf( aPlayerName );
- if i=-1 then exit;
-
- FPlayerList[i] := aPlayerName + INI_IMAGEINDEX_SEPARATOR + inttostr( aValue );
-end;
-
-procedure TFireWireSaveGame.AddPlayer(const aPlayerName: string);
-var i: integer;
-begin
- if IndexOf( aPlayerName )<>-1 then exit; // player already exists in the list
- i := Length( FPlayerList );
- SetLength( FPlayerList, i+1 );
- FPlayerList[i] := aPlayerName + INI_IMAGEINDEX_SEPARATOR;
- SavePlayerList;
-end;
-
-constructor TFireWireSaveGame.CreateLulutechIniFile;
-begin
- CreateIniFileWithAppName;
- // create section for last player info
- if not SectionExists( INI_CURRENT_PLAYER_SECTION ) then begin
-   CurrentPlayerName := 'none';
-   CurrentDrawingIndex := 0;
- end;
- FCurrentPlayerName := ReadString(INI_CURRENT_PLAYER_SECTION, INI_NAME, 'none');
- FCurrentDrawingIndex := strtoint( ReadString(INI_CURRENT_PLAYER_SECTION, INI_IMAGE_INDEX, '0' ));
-
- RetrieveSettings;
-end;
-
-destructor TFireWireSaveGame.Destroy;
-begin
- inherited Destroy;
-end;
-
-procedure TFireWireSaveGame.SetCurrentCountry;
-begin
- WriteString('Language', 'Country', inttostr( FCurrentCountry ));
-end;
-
-procedure TFireWireSaveGame.SetCurrentPlayer(APlayerName: string);
-var i: integer;
-begin
- i:=IndexOf( APlayerName );
- if i=-1 then AddPlayer( APlayerName );
-
- SetCurrentPlayerName( APlayerName );
- SetCurrentDrawingIndex( GetPlayerImageIndex( i ) );
-
- SavePlayerList;
+  Result := @PlayerList[FCurrentPlayerIndex];
 end;
 
 end.

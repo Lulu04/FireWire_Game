@@ -1,4 +1,4 @@
-unit GeometricShapes ;
+unit GeometricShapes;
 
 {$mode objfpc}{$H+}
 
@@ -78,10 +78,8 @@ private
 end;
 
 
-var    FGeometricShapes      : TGeometricShapes ;
-
-
-//function PercentColor ( aColor : TBGRAPixel ;aPercent:single ) :TBGRAPixel ;
+var
+  FGeometricShapes: TGeometricShapes;
 
 implementation
 
@@ -143,6 +141,7 @@ begin
  YImageCenter := aHeight shr 1 ;
 // if FPenWidth < 1 then FPenWidth:=1;
 
+ Result := NIL;
  SetLength( Result, Length( FPointsArray ));
  for i:=low(FPointsArray) to high(FPointsArray) do begin
   Result[i].x := FPointsArray[i].x * Factor + HMargin ;
@@ -509,13 +508,8 @@ end;
 
 
 Initialization
-FGeometricShapes := TGeometricShapes.Create ;
+FGeometricShapes := TGeometricShapes.Create;
 Finalization
-FGeometricShapes.Free ;
-
-
-
-
-
+FGeometricShapes.Free;
 end.
 

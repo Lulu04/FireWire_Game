@@ -1,9 +1,0 @@
-[DRAWING_PATH]
-Cross
-PointCount
-4
-ListOfPointF
-0.417 0.260
-0.600 0.430
-JUMP 0.417 0.430
-0.600 0.260
