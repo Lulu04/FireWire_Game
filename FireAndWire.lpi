@@ -20,7 +20,7 @@
       <Language Value="040C"/>
       <StringTable CompanyName="LuluGame" LegalCopyright="LuluGame" LegalTrademarks="LuluGame" ProductVersion="2.0"/>
     </VersionInfo>
-    <BuildModes Count="2" Active="Debug">
+    <BuildModes Count="2" Active="Release">
       <Item1 Name="Debug" Default="True"/>
       <Item2 Name="Release">
         <CompilerOptions>
@@ -94,7 +94,7 @@
       <Unit0>
         <Filename Value="FireAndWire.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="21"/>
+        <EditorIndex Value="16"/>
         <TopLine Value="3"/>
         <CursorPos X="45" Y="16"/>
         <UsageCount Value="200"/>
@@ -1297,9 +1297,9 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Main"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="9"/>
-        <TopLine Value="65"/>
-        <CursorPos X="2" Y="76"/>
+        <CursorPos X="21" Y="20"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1943,8 +1943,8 @@
       </Unit243>
       <Unit244>
         <Filename Value="Units\u_language.pas"/>
-        <EditorIndex Value="20"/>
-        <TopLine Value="212"/>
+        <EditorIndex Value="15"/>
+        <TopLine Value="211"/>
         <CursorPos Y="236"/>
         <UsageCount Value="100"/>
         <Loaded Value="True"/>
@@ -2031,7 +2031,7 @@
       <Unit256>
         <Filename Value="..\ALSound\source\alsound.pas"/>
         <UnitName Value="ALSound"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="14"/>
         <TopLine Value="2158"/>
         <CursorPos Y="2173"/>
         <UsageCount Value="93"/>
@@ -2339,19 +2339,17 @@
       </Unit294>
       <Unit295>
         <Filename Value="..\ALSound\source\als_effectpresets.inc"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="1228"/>
         <CursorPos X="29" Y="1233"/>
         <UsageCount Value="54"/>
-        <Loaded Value="True"/>
       </Unit295>
       <Unit296>
         <Filename Value="..\ALSound\source\eaxreverbpresets.inc"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="2907"/>
         <CursorPos X="3" Y="2907"/>
         <UsageCount Value="54"/>
-        <Loaded Value="True"/>
       </Unit296>
       <Unit297>
         <Filename Value="..\OGLCScene\oglcUIScrollable.inc"/>
@@ -2409,35 +2407,31 @@
       </Unit303>
       <Unit304>
         <Filename Value="..\ALSound\source\openalsoft.pas"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="146"/>
         <CursorPos X="43" Y="154"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit304>
       <Unit305>
         <Filename Value="..\OGLCScene\source\oglcParticle.inc"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="502"/>
         <CursorPos Y="516"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit305>
       <Unit306>
         <Filename Value="..\OGLCScene\source\glcorearb.pas"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="-1"/>
         <TopLine Value="2282"/>
-        <CursorPos X="31" Y="2296"/>
+        <CursorPos X="49" Y="2299"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit306>
     </Units>
     <OtherDefines Count="2">
       <Define0 Value="DYNLINK"/>
       <Define1 Value="UseCThreads"/>
     </OtherDefines>
-    <JumpHistory Count="30" HistoryIndex="29">
+    <JumpHistory Count="23" HistoryIndex="22">
       <Position1>
         <Filename Value="Units\u_audio.pas"/>
         <Caret Line="40" TopLine="25"/>
@@ -2511,53 +2505,25 @@
         <Caret Line="2173" TopLine="2158"/>
       </Position18>
       <Position19>
-        <Filename Value="..\ALSound\source\openalsoft.pas"/>
-        <Caret Line="149" TopLine="142"/>
-      </Position19>
-      <Position20>
-        <Filename Value="..\ALSound\source\openalsoft.pas"/>
-        <Caret Line="150" TopLine="142"/>
-      </Position20>
-      <Position21>
-        <Filename Value="..\ALSound\source\openalsoft.pas"/>
-        <Caret Line="156" TopLine="142"/>
-      </Position21>
-      <Position22>
-        <Filename Value="..\ALSound\source\openalsoft.pas"/>
-        <Caret Line="159" TopLine="142"/>
-      </Position22>
-      <Position23>
-        <Filename Value="..\ALSound\source\openalsoft.pas"/>
-        <Caret Line="160" TopLine="142"/>
-      </Position23>
-      <Position24>
-        <Filename Value="..\ALSound\source\openalsoft.pas"/>
-        <Caret Line="162" TopLine="142"/>
-      </Position24>
-      <Position25>
         <Filename Value="Units\u_crossplatform.pas"/>
         <Caret Line="18" Column="62" TopLine="10"/>
-      </Position25>
-      <Position26>
+      </Position19>
+      <Position20>
         <Filename Value="Units\main.pas"/>
         <Caret Line="76" Column="2" TopLine="65"/>
-      </Position26>
-      <Position27>
+      </Position20>
+      <Position21>
         <Filename Value="Units\u_audio.pas"/>
         <Caret Line="15" Column="6"/>
-      </Position27>
-      <Position28>
+      </Position21>
+      <Position22>
         <Filename Value="Units\u_screen_nooal.pas"/>
         <Caret Line="32" Column="6" TopLine="18"/>
-      </Position28>
-      <Position29>
+      </Position22>
+      <Position23>
         <Filename Value="Units\u_screen_game.pas"/>
         <Caret Line="188" Column="18" TopLine="174"/>
-      </Position29>
-      <Position30>
-        <Filename Value="..\OGLCScene\source\oglcParticle.inc"/>
-        <Caret Line="516" TopLine="502"/>
-      </Position30>
+      </Position23>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>

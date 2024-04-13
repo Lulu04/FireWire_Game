@@ -5,12 +5,14 @@ Game created by Lulu  for Lazarus Game contest 2018, and rewrited (2024) to be c
 You need:
 - package BGRABitmap and LazOpenGLContext installed on the IDE
 - ALSound library (https://github.com/Lulu04/ALSound)
-- OGLSCene library (https://github.com/Lulu04/OGLCScene)
+- OGLCScene library (https://github.com/Lulu04/OGLCScene)
+- UnitsCommon (https://github.com/Lulu04/UnitsCommon)
   
 You must organize all folders at the same level and renamed as follow:  
 |- FireWire_Game  
 |- ALSound  
 |- OGLCScene  
+|- UnitsCommon  
 
 In game, use the mouse, ESC key to return to main menu.
 
