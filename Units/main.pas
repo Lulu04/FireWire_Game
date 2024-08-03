@@ -58,7 +58,7 @@ begin
   FScene.OnLoadCommonData := @LoadCommonData;
   FScene.OnFreeCommonData := @FreeCommonData;
   if (FGameState <> NIL) and FGameState.FolderCreated then
-    FScene.CreateLogFile(FGameState.SaveFolder+'FireAndWire.log', True);
+    FScene.CreateLogFile(FGameState.SaveFolder+'scene.log', True);
 
   Application.OnIdle := @ProcessApplicationIdle;
 end;
@@ -93,7 +93,7 @@ end;
 
 procedure TForm_Main.Timer1Timer(Sender: TObject);
 begin
- Caption := 'Fire Wire - Lulu 2018        '+inttostr(FScene.FPS)+' FPS';
+ Caption := 'Fire Wire - Lulu 2018-2024        '+inttostr(FScene.FPS)+' FPS';
 end;
 
 procedure TForm_Main.LoadCommonData;

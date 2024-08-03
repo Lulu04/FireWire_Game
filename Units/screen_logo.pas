@@ -17,9 +17,9 @@ type
 TScreenLogo = class(TScreenTemplate)
 private
   FAtlas: TOGLCTextureAtlas;
-  FTexHearth, FTexPeopleInPeace, FTexLogoBody, FTexLogoArm: PTexture;
+  FTexHearth, FTexPeopleInPeace, FTexLogoBody, FTexLogoRightArm, FTexLogoLeftArm, FTexLogoHead: PTexture;
   FStep: integer;
-  FHearth, FHearthText, FBody, FArm: TSprite;
+  FHearth, FHearthText, FBody, FRightArm, FLeftArm, FHead: TSprite;
   FGlow: TOGLCGlow;
   procedure ProcessClickOnScene(Button: TMouseButton; Shift: TShiftState; X, Y: Integer);
   procedure InterruptLogo;
@@ -52,11 +52,11 @@ begin
     end;
     2: begin
       ClearMessageList;
-      PostMessage(3);
+      PostMessage(10);
     end;
     3: begin
       ClearMessageList;
-      PostMessage(4);
+      PostMessage(10);
     end;
   end;
 end;
@@ -64,6 +64,7 @@ end;
 procedure TScreenLogo.CreateObjects;
 var fd: TFontDescriptor;
   path: string;
+  h: integer;
 begin
   FAtlas := FScene.CreateAtlas;
   FAtlas.Spacing := 1;
@@ -71,11 +72,14 @@ begin
   path := FScene.App.DataFolder+'Logo'+DirectorySeparator;
   FTexHearth := FAtlas.AddFromSVG(path+'World.svg', -1, Round(FScene.Height*0.5));
 
-  fd.Create('Arial', FScene.ScaleDesignToScene(64), [], BGRA(255,255,200), BGRA(0,0,0,0), 0, BGRA(255,128,64), 0, 0, 10);
+  fd.Create('Arial', Round(FScene.Height/15), [], BGRA(255,255,200), BGRA(0,0,0,0), 0, BGRA(255,128,64), 0, 0, 10);
   FTexPeopleInPeace := FAtlas.AddString('Peoples at peace', fd, NIL);
 
-  FTexLogoBody := FAtlas.AddFromSVG(path+'LogoBody.svg', -1, Round(FScene.Height*0.35));
-  FTexLogoArm := FAtlas.AddFromSVG(path+'LogoArm.svg', -1, Round(FScene.Height*0.35*0.2165));
+  h := Round(FScene.Height*0.35);
+  FTexLogoBody := FAtlas.AddFromSVG(path+'LogoBody.svg', -1, h);
+  FTexLogoHead := FAtlas.AddFromSVG(path+'LogoHead.svg', -1, Round(h*0.4072));
+  FTexLogoRightArm := FAtlas.AddFromSVG(path+'LogoRightArm.svg', -1, Round(h*0.4253));
+  FTexLogoLeftArm := FAtlas.AddFromSVG(path+'LogoLeftArm.svg', -1, Round(h*0.4253));
 
   FAtlas.TryToPack;
   FAtlas.Build;
@@ -92,7 +96,7 @@ begin
   FHearthText.Y.Value := FHearth.BottomY + FScene.ScaleDesignToScene(50);
   FHearthText.Opacity.Value := 0;
 
-  FGlow := TOGLCGlow.Create(FScene, FHearth.Width*0.5, BGRA(255,128,64));
+  FGlow := TOGLCGlow.Create(FScene, FHearth.Width*0.5, BGRA(255,255,255));
   FHearth.AddChild(FGlow, -1);
   FGlow.CenterOnParent;
   FGlow.Opacity.Value := 0;
@@ -100,15 +104,28 @@ begin
   FBody := TSprite.Create(FTexLogoBody, False);
   FScene.Add(FBody);
   FBody.CenterX := FScene.Width*0.5;
-  FBody.Y.Value := FScene.Height*0.1;
+  FBody.CenterY := FScene.Height*0.5;
   FBody.Opacity.Value := 0;
 
-  FArm  := TSprite.Create(FTexLogoArm, False);
-  FBody.AddChild(FArm, 1);
-  FArm.X.Value := FBody.Width*0.675;
-  FArm.BottomY := FBody.Height*0.580;
-  FArm.Pivot := PointF(0.2,0.85);
-  FArm.Opacity.Value := 0;
+  FHead  := TSprite.Create(FTexLogoHead, False);
+  FBody.AddChild(FHead, 1);
+  FHead.X.Value := FBody.Width*0.3369;
+  FHead.BottomY := FBody.Height*0.02;
+  FHead.Opacity.Value := 0;
+
+  FLeftArm  := TSprite.Create(FTexLogoLeftArm, False);
+  FBody.AddChild(FLeftArm, 1);
+  FLeftArm.X.Value := FBody.Width*0.685;
+  FLeftArm.Y.Value := FBody.Height*0.3212;
+  FLeftArm.Pivot := PointF(0.67,0.14); // PointF(0.6843,0.1276);
+  FLeftArm.Opacity.Value := 0;
+
+  FRightArm  := TSprite.Create(FTexLogoRightArm, False);
+  FBody.AddChild(FRightArm, 1);
+  FRightArm.X.Value := FBody.Width*0.1978;
+  FRightArm.Y.Value := FBody.Height*0.3212;
+  FRightArm.Pivot := PointF(0.33,0.14); // PointF(0.3157,0.1276);
+  FRightArm.Opacity.Value := 0;
 
   FScene.Mouse.OnClickOnScene := @ProcessClickOnScene;
   FStep := -1;
@@ -125,44 +142,46 @@ procedure TScreenLogo.ProcessMessage(UserValue: TUserMessageValue);
 begin
   inherited ProcessMessage(UserValue); // keep this line please
   case UserValue of
-    0: begin
+    0: begin     // people appears
       FStep := 0;
       FHearth.Opacity.ChangeTo(255, 1.0);
       FHearthText.Opacity.ChangeTo(255, 1.0);
       FGlow.Opacity.ChangeTo(255, 1.0);
       PostMessage(1, 4);
     end;
-    1: begin
+    1: begin    // people disappears
       FStep := 1;
-      FHearth.Opacity.ChangeTo(0, 1.0);
-      FHearthText.Opacity.ChangeTo(0, 1.0);
-      FGlow.Opacity.ChangeTo(0, 1.0);
+      FScene.Layer[0].Opacity.ChangeTo(0, 1.0);
       PostMessage(2, 1.0);
     end;
-    2: begin
+    2: begin   // puppet appears
       FStep := 2;
-      FBody.Opacity.ChangeTo(255, 1.0);
-      FArm.Opacity.ChangeTo(255, 1.0);
-      PostMessage(3, 4);
-      PostMessage(10);
-    end;
-    3: begin
-      FStep := 3;
-      FBody.Opacity.ChangeTo(0, 1.0);
-      FArm.Opacity.ChangeTo(0, 1.0);
-      PostMessage(4, 1);
-    end;
-    4: begin
-      FScene.RunScreen(TitleScreen);
-    end;
+      FHearth.Opacity.Value := 0;
+      FHearthText.Opacity.Value := 0;
+      FGlow.Opacity.Value := 0;
 
-    10: begin
-      FArm.Angle.ChangeTo(-15, 1.0, idcSinusoid);
-      PostMessage(11, 1.0);
+      FBody.Opacity.Value := 255;
+      FRightArm.Opacity.Value := 255;
+      FLeftArm.Opacity.Value := 255;
+      FHead.Opacity.Value := 255;
+      FScene.Layer[0].Opacity.ChangeTo(255, 1.0);
+      PostMessage(3, 2);
     end;
-    11: begin
-      FArm.Angle.ChangeTo(15, 1.0, idcSinusoid);
-      PostMessage(10, 1.0);
+    3: begin   // puppet pranam
+      FStep := 3;
+      FRightArm.Angle.ChangeTo(-115, 1.5, idcSinusoid);
+      FLeftArm.Angle.ChangeTo(115, 1.5, idcSinusoid);
+      FHead.MoveRelative(0, FHead.Height*0.35, 1.5, idcSinusoid);
+      PostMessage(4, 2);
+    end;
+    4: begin   // puppet end pranam
+      FRightArm.Angle.ChangeTo(-70, 1.5, idcSinusoid);
+      FLeftArm.Angle.ChangeTo(70, 1.5, idcSinusoid);
+      FHead.MoveRelative(0, -FHead.Height*0.35, 1.5, idcSinusoid);
+      PostMessage(10, 3);
+    end;
+    10: begin  // puppet disappears
+      FScene.RunScreen(TitleScreen);
     end;
   end;
 end;

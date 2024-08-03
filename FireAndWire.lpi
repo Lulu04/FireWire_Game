@@ -31,14 +31,14 @@
           </Target>
           <SearchPaths>
             <IncludeFiles Value="$(ProjOutDir)"/>
-            <Libraries Value="\usr\lib\gcc\x86_64-linux-gnu\7\;media\sf_pascal"/>
+            <Libraries Value="\usr\lib\gcc\x86_64-linux-gnu\7;media\sf_pascal"/>
             <OtherUnitFiles Value="Units;..\UnitsCommon;..\OGLCScene\source;..\ALSound\source"/>
             <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
           </SearchPaths>
           <CodeGeneration>
             <SmartLinkUnit Value="True"/>
             <Optimizations>
-              <OptimizationLevel Value="3"/>
+              <OptimizationLevel Value="2"/>
               <VariablesInRegisters Value="True"/>
             </Optimizations>
           </CodeGeneration>
@@ -46,6 +46,7 @@
             <Debugging>
               <GenerateDebugInfo Value="False"/>
               <DebugInfoType Value="dsDwarf2"/>
+              <TrashVariables Value="True"/>
               <StripSymbols Value="True"/>
             </Debugging>
             <LinkSmart Value="True"/>
@@ -90,11 +91,11 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="308">
+    <Units Count="312">
       <Unit0>
         <Filename Value="FireAndWire.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="19"/>
         <TopLine Value="3"/>
         <CursorPos X="45" Y="16"/>
         <UsageCount Value="200"/>
@@ -1011,7 +1012,7 @@
         <Filename Value="Units\common.pas"/>
         <IsPartOfProject Value="True"/>
         <TopLine Value="4"/>
-        <CursorPos X="31" Y="19"/>
+        <CursorPos X="8" Y="10"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit124>
@@ -1297,8 +1298,10 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="Main"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="9"/>
-        <CursorPos X="37" Y="15"/>
+        <TopLine Value="89"/>
+        <CursorPos X="28" Y="101"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -1753,9 +1756,9 @@
       <Unit220>
         <Filename Value="Units\u_screen_game.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="13"/>
-        <TopLine Value="174"/>
-        <CursorPos X="18" Y="188"/>
+        <EditorIndex Value="17"/>
+        <TopLine Value="297"/>
+        <CursorPos X="17" Y="311"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit220>
@@ -1832,7 +1835,6 @@
         <Filename Value="Units\u_spritedefinition.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="u_SpriteDefinition"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="4"/>
         <TopLine Value="263"/>
         <CursorPos X="48" Y="276"/>
@@ -1920,9 +1922,9 @@
       <Unit241>
         <Filename Value="Units\u_screen_nooal.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="11"/>
-        <TopLine Value="18"/>
-        <CursorPos X="6" Y="32"/>
+        <EditorIndex Value="15"/>
+        <TopLine Value="47"/>
+        <CursorPos X="73" Y="54"/>
         <UsageCount Value="202"/>
         <Loaded Value="True"/>
       </Unit241>
@@ -1936,7 +1938,7 @@
       <Unit243>
         <Filename Value="Units\u_playerlist.pas"/>
         <UnitName Value="u_PlayerList"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="16"/>
         <TopLine Value="17"/>
         <CursorPos X="43" Y="17"/>
         <UsageCount Value="100"/>
@@ -1944,7 +1946,7 @@
       </Unit243>
       <Unit244>
         <Filename Value="Units\u_language.pas"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="18"/>
         <TopLine Value="211"/>
         <CursorPos Y="236"/>
         <UsageCount Value="100"/>
@@ -2041,7 +2043,8 @@
         <Filename Value="Units\u_audio.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="1"/>
-        <CursorPos X="6" Y="15"/>
+        <TopLine Value="25"/>
+        <CursorPos Y="40"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit257>
@@ -2400,9 +2403,9 @@
         <Filename Value="Units\screen_logo.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="10"/>
-        <TopLine Value="142"/>
-        <CursorPos X="39" Y="154"/>
-        <UsageCount Value="30"/>
+        <TopLine Value="85"/>
+        <CursorPos X="42" Y="100"/>
+        <UsageCount Value="32"/>
         <Loaded Value="True"/>
       </Unit303>
       <Unit304>
@@ -2428,63 +2431,169 @@
       </Unit306>
       <Unit307>
         <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
-        <EditorIndex Value="-1"/>
+        <EditorIndex Value="14"/>
+        <TopLine Value="163"/>
+        <CursorPos X="15" Y="185"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
       </Unit307>
+      <Unit308>
+        <Filename Value="..\OGLCScene\source\oglcScreenTemplate.inc"/>
+        <EditorIndex Value="-1"/>
+        <TopLine Value="46"/>
+        <CursorPos X="71" Y="68"/>
+        <UsageCount Value="10"/>
+      </Unit308>
+      <Unit309>
+        <Filename Value="..\OGLCScene\source\oglcGlow.inc"/>
+        <EditorIndex Value="11"/>
+        <TopLine Value="92"/>
+        <CursorPos Y="114"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit309>
+      <Unit310>
+        <Filename Value="..\OGLCScene\source\oglcMultiRendererFactory.inc"/>
+        <EditorIndex Value="12"/>
+        <TopLine Value="773"/>
+        <CursorPos X="11" Y="780"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit310>
+      <Unit311>
+        <Filename Value="..\OGLCScene\source\oglcType.inc"/>
+        <EditorIndex Value="13"/>
+        <TopLine Value="31"/>
+        <CursorPos Y="46"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit311>
     </Units>
     <OtherDefines Count="2">
       <Define0 Value="DYNLINK"/>
       <Define1 Value="UseCThreads"/>
     </OtherDefines>
-    <JumpHistory Count="12" HistoryIndex="11">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="Units\u_audio.pas"/>
-        <Caret Line="40" TopLine="25"/>
+        <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
+        <Caret Line="1513" TopLine="1488"/>
       </Position1>
       <Position2>
-        <Filename Value="Units\u_audio.pas"/>
-        <Caret Line="41" TopLine="25"/>
+        <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
+        <Caret Line="1516" TopLine="1497"/>
       </Position2>
       <Position3>
-        <Filename Value="Units\u_crossplatform.pas"/>
-        <Caret Line="18" Column="62" TopLine="10"/>
+        <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
+        <Caret Line="1519" TopLine="1497"/>
       </Position3>
       <Position4>
-        <Filename Value="Units\main.pas"/>
-        <Caret Line="76" Column="2" TopLine="65"/>
+        <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
+        <Caret Line="1522" TopLine="1497"/>
       </Position4>
       <Position5>
-        <Filename Value="Units\u_audio.pas"/>
-        <Caret Line="15" Column="6"/>
+        <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
+        <Caret Line="1505" TopLine="1499"/>
       </Position5>
       <Position6>
-        <Filename Value="Units\u_screen_nooal.pas"/>
-        <Caret Line="32" Column="6" TopLine="18"/>
+        <Filename Value="Units\screen_logo.pas"/>
+        <Caret Line="95" Column="18" TopLine="80"/>
       </Position6>
       <Position7>
-        <Filename Value="Units\u_screen_game.pas"/>
-        <Caret Line="188" Column="18" TopLine="174"/>
+        <Filename Value="..\OGLCScene\source\oglcGlow.inc"/>
+        <Caret Line="36" Column="24" TopLine="16"/>
       </Position7>
       <Position8>
-        <Filename Value="Units\main.pas"/>
-        <Caret Line="12" Column="8"/>
+        <Filename Value="..\OGLCScene\source\oglcGlow.inc"/>
+        <Caret Line="82" Column="3" TopLine="79"/>
       </Position8>
       <Position9>
-        <Filename Value="Units\u_screen_title.pas"/>
-        <Caret Line="28" Column="19" TopLine="13"/>
+        <Filename Value="..\OGLCScene\source\oglcGlow.inc"/>
+        <Caret Line="41" Column="15" TopLine="22"/>
       </Position9>
       <Position10>
-        <Filename Value="Units\u_screen_title.pas"/>
-        <Caret Line="151" Column="17" TopLine="133"/>
+        <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
+        <Caret Line="185" Column="15" TopLine="163"/>
       </Position10>
       <Position11>
-        <Filename Value="Units\u_screen_title.pas"/>
-        <Caret Line="25" Column="13" TopLine="13"/>
+        <Filename Value="..\OGLCScene\source\oglcMultiRendererFactory.inc"/>
+        <Caret Line="189" Column="21" TopLine="183"/>
       </Position11>
       <Position12>
-        <Filename Value="Units\u_spritedefinition.pas"/>
-        <Caret Line="60" Column="18" TopLine="46"/>
+        <Filename Value="..\OGLCScene\source\oglcMultiRendererFactory.inc"/>
+        <Caret Line="790" Column="63" TopLine="779"/>
       </Position12>
+      <Position13>
+        <Filename Value="..\OGLCScene\source\oglcGlow.inc"/>
+        <Caret Line="92" Column="67" TopLine="83"/>
+      </Position13>
+      <Position14>
+        <Filename Value="Units\screen_logo.pas"/>
+        <Caret Line="127" TopLine="118"/>
+      </Position14>
+      <Position15>
+        <Filename Value="Units\screen_logo.pas"/>
+        <Caret Line="128" TopLine="118"/>
+      </Position15>
+      <Position16>
+        <Filename Value="Units\screen_logo.pas"/>
+        <Caret Line="130" TopLine="118"/>
+      </Position16>
+      <Position17>
+        <Filename Value="Units\screen_logo.pas"/>
+        <Caret Line="131" TopLine="118"/>
+      </Position17>
+      <Position18>
+        <Filename Value="Units\screen_logo.pas"/>
+        <Caret Line="132" TopLine="118"/>
+      </Position18>
+      <Position19>
+        <Filename Value="Units\screen_logo.pas"/>
+        <Caret Line="133" TopLine="118"/>
+      </Position19>
+      <Position20>
+        <Filename Value="Units\screen_logo.pas"/>
+        <Caret Line="134" TopLine="118"/>
+      </Position20>
+      <Position21>
+        <Filename Value="Units\screen_logo.pas"/>
+        <Caret Line="127" TopLine="118"/>
+      </Position21>
+      <Position22>
+        <Filename Value="Units\screen_logo.pas"/>
+        <Caret Line="128" TopLine="118"/>
+      </Position22>
+      <Position23>
+        <Filename Value="Units\screen_logo.pas"/>
+        <Caret Line="137" TopLine="124"/>
+      </Position23>
+      <Position24>
+        <Filename Value="Units\screen_logo.pas"/>
+        <Caret Line="143" Column="31" TopLine="122"/>
+      </Position24>
+      <Position25>
+        <Filename Value="Units\screen_logo.pas"/>
+        <Caret Line="24" Column="18" TopLine="6"/>
+      </Position25>
+      <Position26>
+        <Filename Value="Units\screen_logo.pas"/>
+        <Caret Line="43" Column="3" TopLine="41"/>
+      </Position26>
+      <Position27>
+        <Filename Value="Units\screen_logo.pas"/>
+        <Caret Line="25" Column="16" TopLine="10"/>
+      </Position27>
+      <Position28>
+        <Filename Value="Units\screen_logo.pas"/>
+        <Caret Line="62" TopLine="46"/>
+      </Position28>
+      <Position29>
+        <Filename Value="Units\screen_logo.pas"/>
+        <Caret Line="27" Column="15" TopLine="17"/>
+      </Position29>
+      <Position30>
+        <Filename Value="Units\screen_logo.pas"/>
+        <Caret Line="100" Column="67" TopLine="82"/>
+      </Position30>
     </JumpHistory>
   </ProjectOptions>
   <CompilerOptions>
@@ -2495,7 +2604,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <Libraries Value="\usr\lib\gcc\x86_64-linux-gnu\7\;media\sf_pascal"/>
+      <Libraries Value="\usr\lib\gcc\x86_64-linux-gnu\7;media\sf_pascal"/>
       <OtherUnitFiles Value="Units;..\UnitsCommon;..\OGLCScene\source;..\ALSound\source"/>
       <UnitOutputDirectory Value="lib\$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
@@ -2540,15 +2649,6 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <BreakPoints Count="1">
-      <Item1>
-        <Kind Value="bpkSource"/>
-        <WatchScope Value="wpsLocal"/>
-        <WatchKind Value="wpkWrite"/>
-        <Source Value="Units\u_audio.pas"/>
-        <Line Value="40"/>
-      </Item1>
-    </BreakPoints>
     <Watches Count="1"/>
     <Exceptions Count="3">
       <Item1>
