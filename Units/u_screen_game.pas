@@ -254,7 +254,7 @@ begin
   // Bonus sprite only appears if there are more than 20 points on the drawing
   if FDrawingPath.Count > 20 then begin
     FTexBonus := GameAtlas.RetrieveTextureByFileName('Bonus.png');
-    FBonusTimer := TimerManager.Add(@ProcessTimerToCreateBonus, 15000);
+    FBonusTimer := FScene.Timer.Add(@ProcessTimerToCreateBonus, 15000);
   end;
 
   FScene.OnAfterPaint := @DrawLineIndicator;
@@ -273,7 +273,7 @@ procedure TGameScreen.FreeObjects;
 begin
   FreeSound;
   FScene.ClearAllLayer;
-  TimerManager.Delete(FBonusTimer);
+  FScene.Timer.Delete(FBonusTimer);
   FScene.Mouse.OnClickOnScene := NIL;
   FScene.OnAfterPaint := NIL;
 
@@ -308,7 +308,7 @@ begin
     // delete all bonus objects on screen
     FScene.Layer[LAYER_BONUS].Clear;
     // delete timer to generate bonus
-    TimerManager.Delete(FBonusTimer);
+    FScene.Timer.Delete(FBonusTimer);
 
     FScene.Layer[LAYER_STARS].Opacity.ChangeTo(0, 1);
 

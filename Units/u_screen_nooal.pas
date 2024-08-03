@@ -58,7 +58,7 @@ begin
   FScene.Layer[LAYER_TOP].Opacity.Value := 255;
   FScene.Layer[LAYER_TOP].Visible := True;
 
-  FTimer1 := Timermanager.Add( @ProcessTimer1, 5000 );
+  FTimer1 := FScene.Timer.Add( @ProcessTimer1, 5000 );
 
   // draw emoticon 'sad'
   ima := TBGRABitmap.Create( 300, 300, BGRAPixelTransparent );
