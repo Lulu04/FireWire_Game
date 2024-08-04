@@ -3,8 +3,6 @@ object Form_Main: TForm_Main
   Height = 608
   Top = 27
   Width = 845
-  BorderIcons = []
-  BorderStyle = bsSingle
   Caption = 'Fire Wire'
   ClientHeight = 608
   ClientWidth = 845
@@ -18,7 +16,7 @@ object Form_Main: TForm_Main
   OnKeyUp = FormKeyUp
   OnUTF8KeyPress = FormUTF8KeyPress
   Position = poScreenCenter
-  LCLVersion = '2.2.6.0'
+  LCLVersion = '2.2.4.0'
   WindowState = wsMaximized
   object OpenGLControl1: TOpenGLControl
     Left = 0
