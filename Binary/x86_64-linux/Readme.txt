@@ -4,6 +4,6 @@ Source for OpenAL-Soft can be found on https://github.com/kcat/openal-soft
 
 Source for LibSndFile can be found on https://github.com/libsndfile/libsndfile
 
-If you build them yourself from source, don't forget to rename the obtained binaries to
+If you prefer to build them yourself from source, don't forget to rename the obtained binaries to
 	libopenal.so and libsndfile.so
 and put a copy in your application folder executable.
