@@ -117,15 +117,17 @@ begin
   FBody.AddChild(FLeftArm, 1);
   FLeftArm.X.Value := FBody.Width*0.685;
   FLeftArm.Y.Value := FBody.Height*0.3212;
-  FLeftArm.Pivot := PointF(0.67,0.14); // PointF(0.6843,0.1276);
+  FLeftArm.Pivot := PointF(0.67,0.14);
   FLeftArm.Opacity.Value := 0;
+  FLeftArm.Angle.Value := 70;
 
   FRightArm  := TSprite.Create(FTexLogoRightArm, False);
   FBody.AddChild(FRightArm, 1);
   FRightArm.X.Value := FBody.Width*0.1978;
   FRightArm.Y.Value := FBody.Height*0.3212;
-  FRightArm.Pivot := PointF(0.33,0.14); // PointF(0.3157,0.1276);
+  FRightArm.Pivot := PointF(0.33,0.14);
   FRightArm.Opacity.Value := 0;
+  FRightArm.Angle.Value := -70;
 
   FScene.Mouse.OnClickOnScene := @ProcessClickOnScene;
   FStep := -1;
@@ -169,9 +171,9 @@ begin
     end;
     3: begin   // puppet pranam
       FStep := 3;
-      FRightArm.Angle.ChangeTo(-115, 1.5, idcSinusoid);
-      FLeftArm.Angle.ChangeTo(115, 1.5, idcSinusoid);
-      FHead.MoveRelative(0, FHead.Height*0.35, 1.5, idcSinusoid);
+      FRightArm.Angle.ChangeTo(-100, 1.5, idcSinusoid);
+      FLeftArm.Angle.ChangeTo(100, 1.5, idcSinusoid);
+      FHead.MoveRelative(0, FHead.Height*0.25, 1.5, idcSinusoid);
       PostMessage(4, 2);
     end;
     4: begin   // puppet end pranam
