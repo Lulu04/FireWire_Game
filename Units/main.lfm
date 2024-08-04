@@ -1,11 +1,11 @@
 object Form_Main: TForm_Main
-  Left = 72
-  Height = 608
-  Top = 27
-  Width = 845
+  Left = 507
+  Height = 271
+  Top = 287
+  Width = 440
   Caption = 'Fire Wire'
-  ClientHeight = 608
-  ClientWidth = 845
+  ClientHeight = 271
+  ClientWidth = 440
   Color = 4345681
   DefaultMonitor = dmPrimary
   KeyPreview = True
@@ -16,13 +16,13 @@ object Form_Main: TForm_Main
   OnKeyUp = FormKeyUp
   OnUTF8KeyPress = FormUTF8KeyPress
   Position = poScreenCenter
-  LCLVersion = '2.2.4.0'
+  LCLVersion = '2.2.6.0'
   WindowState = wsMaximized
   object OpenGLControl1: TOpenGLControl
     Left = 0
-    Height = 608
+    Height = 271
     Top = 0
-    Width = 845
+    Width = 440
     Align = alClient
     AutoResizeViewport = True
   end
