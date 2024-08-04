@@ -5,13 +5,15 @@ Game created by Lulu  for Lazarus Game contest 2018, and rewrited (2024) to be c
 In game, use the mouse, ESC key to return to main menu.  
 
 ## How to compile
-You need:
-- package BGRABitmap and LazOpenGLContext installed on the IDE
-- ALSound library (https://github.com/Lulu04/ALSound)
-- OGLCScene library (https://github.com/Lulu04/OGLCScene)
-- UnitsCommon library (https://github.com/Lulu04/UnitsCommon)
+You must have Lazarus IDE installed on your system with package BGRABitmap and LazOpenGLContext installed on the IDE.  
+Create a directory named "fireandwire" on your disk and into it do the following:
+- clone this repository or download the zip.
+- clone the repository [UnitsCommon](https://github.com/Lulu04/UnitsCommon). If you choose to download the zip, unzip it and rename the obtained directory to "UnitsCommon".
+- clone the repository [ALSound library](https://github.com/Lulu04/ALSound). If you choose to download the zip, unzip it and rename the obtained directory to "ALSound".
+- clone the repository [OGLCScene](https://github.com/Lulu04/OGLCScene). If you choose to download the zip, unzip it and rename the obtained directory to "OGLCScene".
   
-You must organize all folders at the same level and renamed as follow:  
+The directory structure should be like:  
+`|- littlered`  
 `    |- FireWire_Game`  
 `    |- ALSound`  
 `    |- OGLCScene`  
