@@ -1,4 +1,4 @@
-## FIREWIRE
+# FIREWIRE
 Game created by Lulu  for Lazarus Game contest 2018, and rewrited (2024) to be compatible with ALSound and new version of OGLCScene.
 
 ## How to play
