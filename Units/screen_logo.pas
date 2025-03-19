@@ -76,10 +76,10 @@ begin
   FTexPeopleInPeace := FAtlas.AddString('Peoples at peace', fd, NIL);
 
   h := Round(FScene.Height*0.35);
-  FTexLogoBody := FAtlas.AddFromSVG(path+'LogoBody.svg', -1, h);
-  FTexLogoHead := FAtlas.AddFromSVG(path+'LogoHead.svg', -1, Round(h*0.4072));
-  FTexLogoRightArm := FAtlas.AddFromSVG(path+'LogoRightArm.svg', -1, Round(h*0.4253));
-  FTexLogoLeftArm := FAtlas.AddFromSVG(path+'LogoLeftArm.svg', -1, Round(h*0.4253));
+  FTexLogoBody := FAtlas.AddFromSVG(path+'LogoBody.svg', -1, Round(h*0.75));
+  FTexLogoHead := FAtlas.AddFromSVG(path+'LogoHead.svg', -1, Round(h*0.4072*0.75));
+  FTexLogoRightArm := FAtlas.AddFromSVG(path+'LogoRightArm.svg', -1, Round(h*0.4253*0.75));
+  FTexLogoLeftArm := FAtlas.AddFromSVG(path+'LogoLeftArm.svg', -1, Round(h*0.4253*0.75));
 
   FAtlas.TryToPack;
   FAtlas.Build;
@@ -94,7 +94,7 @@ begin
   FHearthText.CenterX := FScene.Width*0.5;
   FHearthText.Y.Value := FHearth.BottomY + FScene.ScaleDesignToScene(50);
 
-  FGlow := TOGLCGlow.Create(FScene, FHearth.Width*0.5, BGRA(255,255,255));
+  FGlow := TOGLCGlow.Create(FScene, FHearth.Width*0.5, FHearth.Width*0.5, BGRA(255,255,255));
   FHearth.AddChild(FGlow, -1);
   FGlow.CenterOnParent;
 
@@ -144,13 +144,13 @@ begin
   case UserValue of
     0: begin     // people appears
       FStep := 0;
-      FScene.Layer[0].Opacity.ChangeTo(0255, 1.0);
-      PostMessage(1, 4);
+      FScene.Layer[0].Opacity.ChangeTo(0255, 0.5);
+      PostMessage(1, 3);
     end;
     1: begin    // people disappears
       FStep := 1;
-      FScene.Layer[0].Opacity.ChangeTo(0, 1.0);
-      PostMessage(2, 1.0);
+      FScene.Layer[0].Opacity.ChangeTo(0, 0.5);
+      PostMessage(2, 0.5);
     end;
     2: begin   // puppet appears
       FStep := 2;
@@ -162,15 +162,15 @@ begin
       FRightArm.Visible := True;
       FLeftArm.Visible := True;
       FHead.Visible := True;
-      FScene.Layer[0].Opacity.ChangeTo(255, 1.0);
-      PostMessage(3, 2);
+      FScene.Layer[0].Opacity.ChangeTo(255, 0.5);
+      PostMessage(3, 0.6);
     end;
     3: begin   // puppet pranam
       FStep := 3;
-      FRightArm.Angle.ChangeTo(-100, 1.5, idcSinusoid);
-      FLeftArm.Angle.ChangeTo(100, 1.5, idcSinusoid);
-      FHead.MoveRelative(0, FHead.Height*0.25, 1.5, idcSinusoid);
-      PostMessage(4, 2);
+      FRightArm.Angle.ChangeTo(-100, 1.0, idcSinusoid);     // idcSinusoid
+      FLeftArm.Angle.ChangeTo(100, 1.0, idcSinusoid);
+      FHead.MoveRelative(0, FHead.Height*0.25, 1.0, idcSinusoid);
+      PostMessage(10, 3.0);
     end;
     4: begin   // puppet end pranam
       FRightArm.Angle.ChangeTo(-70, 1.5, idcSinusoid);
