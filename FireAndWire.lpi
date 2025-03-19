@@ -91,11 +91,11 @@
         <PackageName Value="LCL"/>
       </Item4>
     </RequiredPackages>
-    <Units Count="313">
+    <Units Count="314">
       <Unit0>
         <Filename Value="FireAndWire.lpr"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="20"/>
+        <EditorIndex Value="21"/>
         <TopLine Value="3"/>
         <CursorPos X="45" Y="16"/>
         <UsageCount Value="200"/>
@@ -858,7 +858,7 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="82"/>
         <CursorPos X="15" Y="102"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit103>
       <Unit104>
         <Filename Value="Unit Automates\pistes_eve.pas"/>
@@ -1012,7 +1012,7 @@
         <Filename Value="Units\common.pas"/>
         <IsPartOfProject Value="True"/>
         <TopLine Value="4"/>
-        <CursorPos X="8" Y="10"/>
+        <CursorPos X="20" Y="13"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
       </Unit124>
@@ -1704,7 +1704,7 @@
         <Filename Value="Units\u_screen_title.pas"/>
         <IsPartOfProject Value="True"/>
         <EditorIndex Value="3"/>
-        <TopLine Value="90"/>
+        <TopLine Value="144"/>
         <CursorPos X="36" Y="104"/>
         <UsageCount Value="200"/>
         <Loaded Value="True"/>
@@ -1755,7 +1755,7 @@
       <Unit220>
         <Filename Value="Units\u_screen_game.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="18"/>
+        <EditorIndex Value="19"/>
         <TopLine Value="297"/>
         <CursorPos X="17" Y="311"/>
         <UsageCount Value="200"/>
@@ -1856,7 +1856,7 @@
         <EditorIndex Value="-1"/>
         <WindowIndex Value="1"/>
         <TopLine Value="118"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit232>
       <Unit233>
         <Filename Value="C:\lazarus\fpc\3.0.4\source\rtl\objpas\sysutils\filutilh.inc"/>
@@ -1921,7 +1921,7 @@
       <Unit241>
         <Filename Value="Units\u_screen_nooal.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="16"/>
+        <EditorIndex Value="17"/>
         <TopLine Value="47"/>
         <CursorPos X="73" Y="54"/>
         <UsageCount Value="202"/>
@@ -1932,12 +1932,12 @@
         <EditorIndex Value="-1"/>
         <TopLine Value="549"/>
         <CursorPos X="16" Y="553"/>
-        <UsageCount Value="0"/>
+        <UsageCount Value="10"/>
       </Unit242>
       <Unit243>
         <Filename Value="Units\u_playerlist.pas"/>
         <UnitName Value="u_PlayerList"/>
-        <EditorIndex Value="17"/>
+        <EditorIndex Value="18"/>
         <TopLine Value="17"/>
         <CursorPos X="43" Y="17"/>
         <UsageCount Value="100"/>
@@ -1945,7 +1945,7 @@
       </Unit243>
       <Unit244>
         <Filename Value="Units\u_language.pas"/>
-        <EditorIndex Value="19"/>
+        <EditorIndex Value="20"/>
         <TopLine Value="211"/>
         <CursorPos Y="236"/>
         <UsageCount Value="100"/>
@@ -2403,8 +2403,8 @@
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="11"/>
-        <TopLine Value="143"/>
-        <CursorPos X="30" Y="159"/>
+        <TopLine Value="86"/>
+        <CursorPos X="48" Y="99"/>
         <UsageCount Value="40"/>
         <Loaded Value="True"/>
       </Unit303>
@@ -2431,7 +2431,7 @@
       </Unit306>
       <Unit307>
         <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
-        <EditorIndex Value="15"/>
+        <EditorIndex Value="16"/>
         <TopLine Value="1037"/>
         <CursorPos X="3" Y="1007"/>
         <UsageCount Value="14"/>
@@ -2449,7 +2449,7 @@
       </Unit308>
       <Unit309>
         <Filename Value="..\OGLCScene\source\oglcGlow.inc"/>
-        <EditorIndex Value="12"/>
+        <EditorIndex Value="13"/>
         <TopLine Value="92"/>
         <CursorPos Y="114"/>
         <UsageCount Value="14"/>
@@ -2457,7 +2457,7 @@
       </Unit309>
       <Unit310>
         <Filename Value="..\OGLCScene\source\oglcMultiRendererFactory.inc"/>
-        <EditorIndex Value="13"/>
+        <EditorIndex Value="14"/>
         <TopLine Value="773"/>
         <CursorPos X="11" Y="780"/>
         <UsageCount Value="14"/>
@@ -2465,7 +2465,7 @@
       </Unit310>
       <Unit311>
         <Filename Value="..\OGLCScene\source\oglcType.inc"/>
-        <EditorIndex Value="14"/>
+        <EditorIndex Value="15"/>
         <TopLine Value="31"/>
         <CursorPos Y="46"/>
         <UsageCount Value="14"/>
@@ -2479,6 +2479,14 @@
         <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit312>
+      <Unit313>
+        <Filename Value="..\OGLCScene\source\oglcTexture.inc"/>
+        <EditorIndex Value="12"/>
+        <TopLine Value="618"/>
+        <CursorPos X="48" Y="644"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit313>
     </Units>
     <OtherDefines Count="2">
       <Define0 Value="DYNLINK"/>
@@ -2487,23 +2495,23 @@
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
-        <Caret Line="1560" TopLine="1555"/>
+        <Caret Line="1562" TopLine="1555"/>
       </Position1>
       <Position2>
         <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
-        <Caret Line="1561" TopLine="1555"/>
+        <Caret Line="1563" TopLine="1555"/>
       </Position2>
       <Position3>
         <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
-        <Caret Line="1562" TopLine="1555"/>
+        <Caret Line="1560" Column="28" TopLine="1555"/>
       </Position3>
       <Position4>
-        <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
-        <Caret Line="1563" TopLine="1555"/>
+        <Filename Value="Units\main.pas"/>
+        <Caret Line="93" TopLine="88"/>
       </Position4>
       <Position5>
         <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
-        <Caret Line="1560" Column="28" TopLine="1555"/>
+        <Caret Line="1562" TopLine="1555"/>
       </Position5>
       <Position6>
         <Filename Value="Units\main.pas"/>
@@ -2511,99 +2519,99 @@
       </Position6>
       <Position7>
         <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
-        <Caret Line="1562" TopLine="1555"/>
+        <Caret Line="1561" TopLine="1555"/>
       </Position7>
       <Position8>
-        <Filename Value="Units\main.pas"/>
-        <Caret Line="93" TopLine="88"/>
+        <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
+        <Caret Line="1562" TopLine="1555"/>
       </Position8>
       <Position9>
         <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
-        <Caret Line="1561" TopLine="1555"/>
+        <Caret Line="1563" TopLine="1555"/>
       </Position9>
       <Position10>
         <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
-        <Caret Line="1562" TopLine="1555"/>
+        <Caret Line="1564" TopLine="1555"/>
       </Position10>
       <Position11>
-        <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
-        <Caret Line="1563" TopLine="1555"/>
+        <Filename Value="Units\main.pas"/>
+        <Caret Line="93" TopLine="88"/>
       </Position11>
       <Position12>
         <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
-        <Caret Line="1564" TopLine="1555"/>
+        <Caret Line="1557" Column="5" TopLine="1556"/>
       </Position12>
       <Position13>
-        <Filename Value="Units\main.pas"/>
-        <Caret Line="93" TopLine="88"/>
+        <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
+        <Caret Line="383" Column="15" TopLine="368"/>
       </Position13>
       <Position14>
         <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
-        <Caret Line="1557" Column="5" TopLine="1556"/>
+        <Caret Line="1054" Column="7" TopLine="1036"/>
       </Position14>
       <Position15>
         <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
-        <Caret Line="383" Column="15" TopLine="368"/>
+        <Caret Line="225" TopLine="200"/>
       </Position15>
       <Position16>
-        <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
-        <Caret Line="1054" Column="7" TopLine="1036"/>
+        <Filename Value="Units\main.pas"/>
+        <Caret Line="95" Column="42" TopLine="88"/>
       </Position16>
       <Position17>
         <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
-        <Caret Line="225" TopLine="200"/>
+        <Caret Line="1044" Column="19" TopLine="1039"/>
       </Position17>
       <Position18>
-        <Filename Value="Units\main.pas"/>
-        <Caret Line="95" Column="42" TopLine="88"/>
+        <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
+        <Caret Line="324" Column="13" TopLine="310"/>
       </Position18>
       <Position19>
         <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
-        <Caret Line="1044" Column="19" TopLine="1039"/>
+        <Caret Line="1175" Column="35" TopLine="1169"/>
       </Position19>
       <Position20>
         <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
-        <Caret Line="324" Column="13" TopLine="310"/>
+        <Caret Line="382" Column="16" TopLine="369"/>
       </Position20>
       <Position21>
-        <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
-        <Caret Line="1175" Column="35" TopLine="1169"/>
+        <Filename Value="Units\main.pas"/>
+        <Caret Line="94" TopLine="79"/>
       </Position21>
       <Position22>
-        <Filename Value="..\OGLCScene\source\OGLCScene.pas"/>
-        <Caret Line="382" Column="16" TopLine="369"/>
+        <Filename Value="Units\main.pas"/>
+        <Caret Line="95" Column="24" TopLine="79"/>
       </Position22>
       <Position23>
         <Filename Value="Units\main.pas"/>
-        <Caret Line="94" TopLine="79"/>
+        <Caret Line="91" TopLine="80"/>
       </Position23>
       <Position24>
         <Filename Value="Units\main.pas"/>
-        <Caret Line="95" Column="24" TopLine="79"/>
+        <Caret Line="34" Column="26" TopLine="17"/>
       </Position24>
       <Position25>
         <Filename Value="Units\main.pas"/>
-        <Caret Line="91" TopLine="80"/>
+        <Caret Line="104" TopLine="100"/>
       </Position25>
       <Position26>
-        <Filename Value="Units\main.pas"/>
-        <Caret Line="34" Column="26" TopLine="17"/>
+        <Filename Value="Units\screen_logo.pas"/>
+        <Caret Line="27" Column="20" TopLine="20"/>
       </Position26>
       <Position27>
-        <Filename Value="Units\main.pas"/>
-        <Caret Line="104" TopLine="100"/>
+        <Filename Value="Units\screen_logo.pas"/>
+        <Caret Line="149" TopLine="145"/>
       </Position27>
       <Position28>
         <Filename Value="Units\screen_logo.pas"/>
-        <Caret Line="27" Column="20" TopLine="20"/>
+        <Caret Line="27" Column="16" TopLine="14"/>
       </Position28>
       <Position29>
         <Filename Value="Units\screen_logo.pas"/>
-        <Caret Line="149" TopLine="145"/>
+        <Caret Line="159" Column="30" TopLine="143"/>
       </Position29>
       <Position30>
-        <Filename Value="Units\screen_logo.pas"/>
-        <Caret Line="27" Column="16" TopLine="14"/>
+        <Filename Value="Units\common.pas"/>
+        <Caret Line="13" Column="20" TopLine="4"/>
       </Position30>
     </JumpHistory>
   </ProjectOptions>
