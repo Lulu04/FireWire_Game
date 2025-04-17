@@ -22,13 +22,13 @@ function MenuCharSet: string;
 function SmallInfosCharSet: string;
 
 implementation
-uses OGLCScene;
+uses OGLCScene, common;
 var i: integer;
 
 function InstructionsCharSet: string;
 var j: Integer;
 begin
-  Result := '/' + SIMPLELATIN_CHARSET + LATIN1_SUPP_CHARSET;
+  Result := '/' + FScene.Charsets.SIMPLELATIN + FScene.Charsets.LATIN1_SUPPLEMENT_1;
   for j:=0 to COUNTRY_COUNT-1 do
     Result := AddToCharset(Result, CountryRes[j]);
   for j:=0 to COUNTRY_COUNT-1 do begin

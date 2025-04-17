@@ -240,8 +240,8 @@ begin
   ima := TBGRABitmap.Create(32,32, BGRAPixelTransparent);
   ima.FillEllipseLinearColorAntialias(ima.Width/2, ima.Height/2, 15, 15, BGRA(255,32,0,200), BGRA(255,32,0,1));
   t := FScene.TexMan.Add(ima);
-  FScene.Mouse.SetCursorSprite(t, True);
-  FScene.Mouse.ClickPointOffset := PointF(0.5,0.5); // Click point is (Width*0.5,Height*0.5) <= the center
+  t^.Filename:='MouseCursorImage';
+  FScene.Mouse.SetCursorSprite(t, True, PointF(0.5*ima.Width,0.5*ima.Height));
   ima.Free;
 
   TLabelStageInfo.Create;
@@ -271,6 +271,7 @@ end;
 
 procedure TGameScreen.FreeObjects;
 begin
+  FScene.Mouse.DeleteCursorSprite;
   FreeSound;
   FScene.ClearAllLayer;
   FScene.Timer.Delete(FBonusTimer);
