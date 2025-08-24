@@ -16,7 +16,7 @@ object Form_Main: TForm_Main
   OnKeyUp = FormKeyUp
   OnUTF8KeyPress = FormUTF8KeyPress
   Position = poScreenCenter
-  LCLVersion = '2.2.6.0'
+  LCLVersion = '3.8.0.0'
   WindowState = wsMaximized
   object OpenGLControl1: TOpenGLControl
     Left = 0

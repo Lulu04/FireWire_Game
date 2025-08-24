@@ -93,7 +93,7 @@ end;
 
 procedure TForm_Main.Timer1Timer(Sender: TObject);
 begin
- Caption := 'Fire Wire - Lulu 2018-2024        '+inttostr(FScene.FPS)+' FPS';
+  Caption := 'Fire Wire - '+inttostr(FScene.FPS)+' FPS';
 end;
 
 procedure TForm_Main.LoadCommonData;
