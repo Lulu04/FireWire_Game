@@ -1,0 +1,11 @@
+Fire And Wire is a free and open source game written in FreePascal with Lazarus IDE, by Lulu for Lazarus Game contest 2018, and rewrited in 2024 to be compatible with ALSound and new version of OGLCScene.
+
+This archive contains all the necessary files to run the game without installation.
+Simply decompress it somewhere in your user space, enter in the obtained directory and run "FireAndWire.
+
+
+Bugs reports: https://github.com/Lulu04/FireWire_Game/issues
+Code: https://github.com/Lulu04/FireWire_Game
+Release: https://github.com/Lulu04/FireWire_Game/releases/latest
+
+
