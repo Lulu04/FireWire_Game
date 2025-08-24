@@ -53,6 +53,7 @@ type
     PB: TPaintBox;
     Panel1: TPanel;
     Pop1: TPopupMenu;
+    RBAspectRatio: TRadioGroup;
     SD1: TSaveDialog;
     TBGrid: TTrackBar;
     TBScale: TTrackBar;
@@ -72,10 +73,12 @@ type
     procedure Edit1EditingDone(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
+    procedure FormShow(Sender: TObject);
     procedure MenuItem1Click(Sender: TObject);
     procedure MenuItem3Click(Sender: TObject);
     procedure MenuItem4Click(Sender: TObject);
     procedure MenuItem6Click(Sender: TObject);
+    procedure RBAspectRatioSelectionChanged(Sender: TObject);
     procedure TBGridChange(Sender: TObject);
     procedure TBOpacityChange(Sender: TObject);
     procedure TBScaleChange(Sender: TObject);
@@ -86,6 +89,7 @@ type
     function GetScaleFactor: single;
     procedure ComputeBackgroundImageScaled;
     procedure DrawGraphBackground( BG: TBGRABitmap );
+    procedure SetSizeAndPositionOfPaintBox;
   private
     FPointRightClicked : PGraphPoint;
     procedure ProcessRightClickOnPoint( P: PGraphPoint; X, Y: integer; Shift: TShiftState );
@@ -121,6 +125,11 @@ begin
  Editor.Free;
 end;
 
+procedure TForm1.FormShow(Sender: TObject);
+begin
+  SetSizeAndPositionOfPaintBox;
+end;
+
 // Popup Delete
 procedure TForm1.MenuItem1Click(Sender: TObject);
 begin
@@ -145,6 +154,11 @@ end;
 procedure TForm1.MenuItem6Click(Sender: TObject);
 begin
  Editor.AddPoint( FPointRightClicked^.Point.x, FPointRightClicked^.Point.y, FALSE, FALSE );
+end;
+
+procedure TForm1.RBAspectRatioSelectionChanged(Sender: TObject);
+begin
+  SetSizeAndPositionOfPaintBox;
 end;
 
 // load image from disk
@@ -287,6 +301,30 @@ begin
  BG.Fill(BGRA(50,20,20));
  if CheckBox3.Checked then
    BG.PutImage(0, 0, FBackgroundImageScaled, dmDrawWithTransparency, TBOpacity.Position );
+end;
+
+procedure TForm1.SetSizeAndPositionOfPaintBox;
+var w, h, x, y: integer;
+begin
+ case RBAspectRatio.ItemIndex of
+   0: begin
+     w := Panel1.Left - 1;
+     h := Trunc(w / (4/3));
+     x := 0;
+     y := (ClientRect.Height - h) div 2;
+     PB.SetBounds(x, y, w, h);
+   end;
+   1: begin
+     w := Panel1.Left - 1;
+     h := Trunc(w / (16/9));
+     x := 0;
+     y := (ClientRect.Height - h) div 2;
+     PB.SetBounds(x, y, w, h);
+   end;
+   2: begin
+     PB.SetBounds(0, 0, Panel1.Left - 1, ClientRect.Height);
+   end;
+ end;
 end;
 
 procedure TForm1.ProcessRightClickOnPoint(P: PGraphPoint; X, Y: integer;

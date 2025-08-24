@@ -112,6 +112,7 @@ ArrayOfString= array of string;
 function SplitLineToStringArray(ALine: string; aCharSeparator: char): ArrayOfString;
 var i, w: integer;
 begin
+ Result := NIL;
  SetLength( Result, 0 );
  if Length( ALine ) = 0 then exit;
 
